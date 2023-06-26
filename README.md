@@ -30,7 +30,7 @@ Unit testing and integrated testing will be done before deploying
 
 ## Authors
 1.  Akinola Samson
-1.  Bennet Ukot
+1.  Bennet Ukoh
 1.  Birhane Gulilat
 1.  Emmanuel Ugoh
 
