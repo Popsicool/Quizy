@@ -6,6 +6,7 @@ from rest_framework import generics, status
 from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 import json
 import re
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 @api_view(["GET"])
@@ -32,3 +33,4 @@ class ContactMessage(APIView):
         if not check(email):
             return Response(data= {"message": "Invalid Email format"}, status= status.HTTP_400_BAD_REQUEST)
         return Response(data= {"message": "Sent"}, status= status.HTTP_200_OK)
+
