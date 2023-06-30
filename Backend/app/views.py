@@ -49,7 +49,8 @@ class QuizzesView(APIView):
         return Response(data= quiz, status = status.HTTP_200_OK)
     def post(self, request):
         data = request.data
-        if validate:= QuizzesView.check_valid(data):
+        validate = QuizzesView.check_valid(data)
+        if validate:
             return Response({"message": validate}, status= status.HTTP_400_BAD_REQUEST)
         serializer = self.serializer_class(data = data)
         if serializer.is_valid():
@@ -95,7 +96,8 @@ class CategoryView(generics.GenericAPIView):
         return Response(data= serializer.data, status =status.HTTP_200_OK)
     def post(self, request):
         data = request.data
-        if name := data.get("name"):
+        name = data.get("name")
+        if name:
             data["name"] = name.capitalize()
         serializer = self.serializer_class(data = data)
         if serializer.is_valid():
@@ -106,7 +108,8 @@ class CategoryView(generics.GenericAPIView):
         id = request.GET.get("id")
         categories = get_object_or_404(CategoryModel, pk = id)
         data = request.data
-        if name := data.get("name"):
+        name = data.get("name")
+        if name:
             data[name] = name.capitalize()
         serializer = self.serializer_class(data = data, instance = categories, partial=True)
         if serializer.is_valid():
