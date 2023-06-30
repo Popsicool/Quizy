@@ -9,8 +9,11 @@ import re
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from .serializers import CategorySerializer, QuizzeSerializer
 from .models import CategoryModel, Quizze, Question, History
+from drf_yasg.utils import swagger_auto_schema
 # Create your views here.
 
+@swagger_auto_schema(method= "GET",
+operation_description="Test Endpoint for pinging", responses={200: 'ping'})
 @api_view(["GET"])
 def ping(request):
     message = {"reply": "ping"}
@@ -31,10 +34,10 @@ class ContactMessage(APIView):
         email = request.data.get("email")
         message = request.data.get("message")
         if not name or not email or not message:
-            return Response(data= {"message": "Incomplete data"}, status= status.HTTP_400_BAD_REQUEST)
+            return Response(data= {"detail": "Incomplete data"}, status= status.HTTP_400_BAD_REQUEST)
         if not check(email):
-            return Response(data= {"message": "Invalid Email format"}, status= status.HTTP_400_BAD_REQUEST)
-        return Response(data= {"message": "Sent"}, status= status.HTTP_200_OK)
+            return Response(data= {"detail": "Invalid Email format"}, status= status.HTTP_400_BAD_REQUEST)
+        return Response(data= {"detail": "Sent"}, status= status.HTTP_200_OK)
 
 
 
@@ -51,19 +54,56 @@ class QuizzesView(APIView):
         data = request.data
         validate = QuizzesView.check_valid(data)
         if validate:
-            return Response({"message": validate}, status= status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": validate}, status= status.HTTP_400_BAD_REQUEST)
         serializer = self.serializer_class(data = data)
         if serializer.is_valid():
             questions = data.get("questions")
+            categories = data.get("category")
+            quest_collection = []
+            category_collection = []
             for q in questions:
                 quest = Question.objects.create(question = q.get("question"),
                 A = q.get("A"), B = q.get("B"), C = q.get("C"), D = q.get("D"), answer = q.get("answer"))
                 quest.save()
-                serializer.questions.add(quest)
-            serializer.save(owner = request.user)
+                quest_collection.append(quest)
+            for c in categories:
+                cat = CategoryModel.objects.get(name=c)
+                category_collection.append(cat)
+            serializer.save(owner = request.user, questions= quest_collection, category= category_collection)
 
             return Response(data=serializer.data, status = status.HTTP_201_CREATED)
         return Response(data= serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+    def put(self, request):
+        id = request.GET.get("id")
+        quiz = get_object_or_404(Quizze, pk = id)
+        data = request.data
+        if request.user != quiz.owner:
+            return Response({"detail": "UnAuthorized user"}, status= status.HTTP_400_BAD_REQUEST)
+        validate = QuizzesView.check_valid(data)
+        if validate:
+            return Response({"detail": validate}, status= status.HTTP_400_BAD_REQUEST)
+        serializer = self.serializer_class(data = data, instance= quiz, partial=True)
+        if serializer.is_valid():
+            quiz.questions.set([])
+            quiz.category.set([])
+            quiz.save()
+            questions = data.get("questions")
+            categories = data.get("category")
+            quest_collection = []
+            category_collection = []
+            for q in questions:
+                quest = Question.objects.create(question = q.get("question"),
+                A = q.get("A"), B = q.get("B"), C = q.get("C"), D = q.get("D"), answer = q.get("answer"))
+                quest.save()
+                quest_collection.append(quest)
+            for c in categories:
+                cat = CategoryModel.objects.get(name=c)
+                category_collection.append(cat)
+            serializer.save(owner = request.user, questions= quest_collection, category= category_collection)
+
+            return Response(data=serializer.data, status = status.HTTP_201_CREATED)
+        return Response(data= serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
     # def add_more()
     def check_valid(data):
         if not data.get("title"):return "No title"

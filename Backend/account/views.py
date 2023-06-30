@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from account.serializers import UserSerializer, ChangePasswordSerializer
 from .models  import UserData
+from drf_yasg.utils import swagger_auto_schema
 # Create your views here.
 
 
