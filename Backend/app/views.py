@@ -7,7 +7,7 @@ from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 import json
 import re
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from .serializers import CategorySerializer, QuizzeSerializer
+from .serializers import CategorySerializer, QuizzeSerializer, HistorySerializer
 from .models import CategoryModel, Quizze, Question, History
 from drf_yasg.utils import swagger_auto_schema
 # Create your views here.
@@ -115,3 +115,38 @@ class CategoryView(generics.GenericAPIView):
         categories = get_object_or_404(CategoryModel, pk = id)
         categories.delete()
         return Response(status= status.HTTP_204_NO_CONTENT)
+
+class SubmitView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = HistorySerializer
+    def get(self, request):
+        user = request.user
+        histories = History.objects.filter(user = user)
+        serializer = self.serializer_class(histories, many =True)
+        data = []
+        for idx, d in enumerate(serializer.data):
+            quiz = Quizze.objects.get(id = d["quiz"])
+            serializer.data[idx]["title"] = quiz.title
+            serializer.data[idx]["author"] = quiz.owner.username
+            serializer.data[idx]["author_id"] = quiz.owner.id
+        return Response(data= serializer.data, status =status.HTTP_200_OK)
+    def post(self, request):
+        data = request.data
+        quiz_id = data.get("id")
+        if not quiz_id:
+            return Response({"detail": "Quiz id is missing"}, status= status.HTTP_400_BAD_REQUEST)
+        quiz = get_object_or_404(Quizze, pk = quiz_id)
+        score = data.get("score")
+        if not score:
+            return Response({"detail": "Score is missing"}, status= status.HTTP_400_BAD_REQUEST)
+        try:
+            score = int(score)
+        except ValueError:
+            return Response({"detail": "Score not an integer"}, status= status.HTTP_400_BAD_REQUEST)
+        if score > 100:
+            return Response({"detail": "Score Above 100%"}, status= status.HTTP_400_BAD_REQUEST)
+        user = request.user
+        quiz.participants += 1
+        quiz.save()
+        history = History.objects.create(quiz = quiz, grade= score, user= user)
+        return Response({"status": "success"},status= status.HTTP_200_OK)
