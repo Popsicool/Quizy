@@ -16,6 +16,7 @@ class Question(models.Model):
         ('C', 'C'),
         ('D', 'D'),
     )
+    quiz = models.ForeignKey("app.Quizze", on_delete = models.CASCADE)
     question = models.TextField()
     A = models.TextField()
     B = models.TextField()
@@ -27,11 +28,13 @@ class Quizze(models.Model):
     owner = models.ForeignKey(UserData, on_delete= models.CASCADE)
     title = models.CharField(max_length=250)
     category = models.ManyToManyField(CategoryModel)
-    questions = models.ManyToManyField(Question)
     participants = models.IntegerField(default = 0)
     created = models.DateTimeField(_("Created"), auto_now_add=True)
     def __str__(self):
         return f"{self.title} by {self.owner.username}"
+    @property
+    def questions(self):
+        return self.question_set.all()
 
 class History(models.Model):
     user = models.ForeignKey(UserData, on_delete = models.CASCADE)
