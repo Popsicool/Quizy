@@ -35,12 +35,16 @@ class Quizze(models.Model):
     @property
     def questions(self):
         return self.question_set.all()
-
 class History(models.Model):
+    quiz = models.ForeignKey(Quizze, on_delete = models.SET_NULL, null=True)
+    grade = models.IntegerField()
+    date = models.DateTimeField(_("Date"), auto_now_add=True)
     user = models.ForeignKey(UserData, on_delete = models.CASCADE)
-    quizzes = models.ManyToManyField(Quizze)
-    def __str__(self):
-        return f"{self.user.username}'s History"
+
+# class History(models.Model):
+#     quizzes = models.ManyToManyField(Grades)
+#     def __str__(self):
+#         return f"{self.user.username}'s History"
 
 
 @receiver(post_save, sender=UserData)

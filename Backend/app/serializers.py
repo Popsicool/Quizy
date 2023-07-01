@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import CategoryModel, Question, Quizze
 from django.shortcuts import get_object_or_404
+from .models import History
 
 class CategorySerializer(serializers.ModelSerializer):
     def validate(self, attrs):
@@ -89,3 +90,8 @@ class QuizzeSerializer(serializers.ModelSerializer):
             if quest.id not in keep_cat:
                 quest.delete()
         return instance
+
+class HistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = History
+        fields = ["quiz","grade", "date"]
