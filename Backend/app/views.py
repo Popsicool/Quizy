@@ -48,83 +48,37 @@ class QuizzesView(APIView):
     def get(self, request):
         id = request.GET.get("id")
         quiz = get_object_or_404(Quizze, pk = id)
-        # all_quizzes = Quizze.objects.all()
-        return Response(data= quiz, status = status.HTTP_200_OK)
+        quizzes = Quizze.objects.all()
+        serializer = self.serializer_class(quizzes, many =True)
+        return Response(data= serializer.data, status = status.HTTP_200_OK)
     def post(self, request):
         data = request.data
-        validate = QuizzesView.check_valid(data)
-        if validate:
-            return Response({"detail": validate}, status= status.HTTP_400_BAD_REQUEST)
         serializer = self.serializer_class(data = data)
         if serializer.is_valid():
-            questions = data.get("questions")
-            categories = data.get("category")
-            quest_collection = []
-            category_collection = []
-            for q in questions:
-                quest = Question.objects.create(question = q.get("question"),
-                A = q.get("A"), B = q.get("B"), C = q.get("C"), D = q.get("D"), answer = q.get("answer"))
-                quest.save()
-                quest_collection.append(quest)
-            for c in categories:
-                cat = CategoryModel.objects.get(name=c)
-                category_collection.append(cat)
-            serializer.save(owner = request.user, questions= quest_collection, category= category_collection)
-
-            return Response(data=serializer.data, status = status.HTTP_201_CREATED)
+            serializer.save(owner = request.user)
+            return Response(data=serializer.data, status =status.HTTP_201_CREATED)
         return Response(data= serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
     def put(self, request):
         id = request.GET.get("id")
         quiz = get_object_or_404(Quizze, pk = id)
         data = request.data
         if request.user != quiz.owner:
             return Response({"detail": "UnAuthorized user"}, status= status.HTTP_400_BAD_REQUEST)
-        validate = QuizzesView.check_valid(data)
-        if validate:
-            return Response({"detail": validate}, status= status.HTTP_400_BAD_REQUEST)
-        serializer = self.serializer_class(data = data, instance= quiz, partial=True)
+        serializer = self.serializer_class(data = data, instance = quiz, partial=True)
         if serializer.is_valid():
-            quiz.questions.set([])
-            quiz.category.set([])
-            quiz.save()
-            questions = data.get("questions")
-            categories = data.get("category")
-            quest_collection = []
-            category_collection = []
-            for q in questions:
-                quest = Question.objects.create(question = q.get("question"),
-                A = q.get("A"), B = q.get("B"), C = q.get("C"), D = q.get("D"), answer = q.get("answer"))
-                quest.save()
-                quest_collection.append(quest)
-            for c in categories:
-                cat = CategoryModel.objects.get(name=c)
-                category_collection.append(cat)
-            serializer.save(owner = request.user, questions= quest_collection, category= category_collection)
-
-            return Response(data=serializer.data, status = status.HTTP_201_CREATED)
+            serializer.save()
+            return Response(data=serializer.data, status =status.HTTP_200_OK)
         return Response(data= serializer.errors, status= status.HTTP_400_BAD_REQUEST)
 
-    # def add_more()
-    def check_valid(data):
-        if not data.get("title"):return "No title"
-        if not data.get("category"):return "No category"
-        if not data.get("questions"):return "No questions"
-        if not isinstance(data.get("questions"), list):return "Questions not a list"
-        if not isinstance(data.get("category"), list):return "Category not a list"
-        questions = data.get("questions")
-        cat = CategoryModel.objects.all()
-        categories = [c.name for c in cat]
-
-        for c in data.get("category"):
-            if c not in categories:
-                return "Category not found"
-        for i in questions:
-            if not i.get("question") or not i.get("A") or not i.get(
-                "B") or not i.get("C") or not i.get(
-                    "D") or not i.get("answer"): return "Invalid Option"
-            if i.get("answer") not in ["A", "B", "C", "D"]:
-                return "Invalid Answer"
-        return False
+    def delete(self, request):
+        id = request.GET.get("id")
+        quiz = get_object_or_404(Quizze, pk = id)
+        data = request.data
+        if request.user != quiz.owner:
+            return Response({"detail": "UnAuthorized user"}, status= status.HTTP_400_BAD_REQUEST)
+        quiz.delete()
+        return Response(status= status.HTTP_204_NO_CONTENT)
 class CategoryView(generics.GenericAPIView):
     serializer_class = CategorySerializer
     parser_classes = [FormParser, MultiPartParser, JSONParser]
