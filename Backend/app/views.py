@@ -118,7 +118,7 @@ class SubmitView(APIView):
     serializer_class = HistorySerializer
     def get(self, request):
         user = request.user
-        histories = History.objects.filter(user = user)
+        histories = History.objects.filter(user = user).order_by("-date")
         serializer = self.serializer_class(histories, many =True)
         data = []
         for idx, d in enumerate(serializer.data):
@@ -143,7 +143,8 @@ class SubmitView(APIView):
         if score > 100:
             return Response({"detail": "Score Above 100%"}, status= status.HTTP_400_BAD_REQUEST)
         user = request.user
-        quiz.participants += 1
+        if not History.objects.filter(quiz = quiz, user= user).exists():
+            quiz.participants += 1
         quiz.save()
         history = History.objects.create(quiz = quiz, grade= score, user= user)
         return Response({"status": "success"},status= status.HTTP_200_OK)
@@ -152,7 +153,7 @@ class GetQuizzes(APIView):
     serializer_class = GetQuizSerializer
     def get(self, request):
         category = request.query_params.get('category')
-        quizzes = Quizze.objects.all()
+        quizzes = Quizze.objects.all().order_by("-participants")
         if category:
             quizzes = quizzes.filter(category__name__contains=category)
         serializer = self.serializer_class(quizzes, many =True)
