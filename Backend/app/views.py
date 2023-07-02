@@ -7,7 +7,7 @@ from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 import json
 import re
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from .serializers import CategorySerializer, QuizzeSerializer, HistorySerializer
+from .serializers import CategorySerializer, QuizzeSerializer, HistorySerializer, GetQuizSerializer
 from .models import CategoryModel, Quizze, Question, History
 from drf_yasg.utils import swagger_auto_schema
 # Create your views here.
@@ -38,9 +38,6 @@ class ContactMessage(APIView):
         if not check(email):
             return Response(data= {"detail": "Invalid Email format"}, status= status.HTTP_400_BAD_REQUEST)
         return Response(data= {"detail": "Sent"}, status= status.HTTP_200_OK)
-
-
-
 
 class QuizzesView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -150,3 +147,13 @@ class SubmitView(APIView):
         quiz.save()
         history = History.objects.create(quiz = quiz, grade= score, user= user)
         return Response({"status": "success"},status= status.HTTP_200_OK)
+
+class GetQuizzes(APIView):
+    serializer_class = GetQuizSerializer
+    def get(self, request):
+        category = request.query_params.get('category')
+        quizzes = Quizze.objects.all()
+        if category:
+            quizzes = quizzes.filter(category__name__contains=category)
+        serializer = self.serializer_class(quizzes, many =True)
+        return Response(data= serializer.data, status = status.HTTP_200_OK)
