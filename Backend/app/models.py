@@ -47,12 +47,12 @@ class History(models.Model):
 #         return f"{self.user.username}'s History"
 
 
-@receiver(post_save, sender=UserData)
-def user_post_save_receiver(sender, instance, created, *args, **kwargs):
-    """
-    after save
-    """
-    if created:
-        history = History.objects.create(user = instance)
-        history.save()
-        instance.save()
+# @receiver(post_save, sender=UserData)
+# def user_post_save_receiver(sender, instance, created, *args, **kwargs):
+#     """
+#     after save
+#     """
+#     if created:
+#         history = History.objects.create(user = instance)
+#         history.save()
+#         instance.save()
