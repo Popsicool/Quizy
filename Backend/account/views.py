@@ -3,9 +3,10 @@ from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from account.serializers import UserSerializer, ChangePasswordSerializer, UserProfileSerializer
+from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 from .models import UserData
 from drf_yasg.utils import swagger_auto_schema
-from django.http import JsonResponse, HttpResponse
+from django.http import Http404
 # Create your views here.
 
 
@@ -56,12 +57,10 @@ class ChangePasswordView(generics.UpdateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserProfileView(generics.GenericAPIView):
+class UserProfileView(generics.RetrieveAPIView):
 
-    def get(self, request, id):
-        try:
-            queryset = UserData.objects.get(id=id)
-        except UserData.DoesNotExist:
-            return HttpResponse(status=404)
-        serializer = UserProfileSerializer(queryset)
-        return Response(serializer.data)
+    queryset = UserData.objects.all()
+    serializer_class = UserProfileSerializer
+    parser_classes = [FormParser, MultiPartParser, JSONParser]
+    permission_classes = (IsAuthenticated,)
+    lookup_field = 'id'
