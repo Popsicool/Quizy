@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'app',
     'account',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
     'djoser',

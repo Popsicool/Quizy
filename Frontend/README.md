@@ -4,4 +4,3 @@ Quizy is a simple, interactive and interestingly educative app for learners of a
 ## developers
 1. Emmanuel Ugoh
 2. Benneth Ukoh
-
