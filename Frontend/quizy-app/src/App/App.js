@@ -1,9 +1,10 @@
+import HeroSection from '../HeroSection/HeroSection';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-    <h1>Welcome to Quizy App</h1>
+    <HeroSection />
     </div>
   );
 }
