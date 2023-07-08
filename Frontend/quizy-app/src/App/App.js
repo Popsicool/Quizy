@@ -1,6 +1,5 @@
 import HeroSection from '../HeroSection/HeroSection';
 import './App.css';
-import Header from '../Header/Header';
 
 function App() {
   return (
@@ -10,6 +9,9 @@ function App() {
       </div>
       <div className='hero_section'>
         <HeroSection />
+      </div>
+      <div className='main_category'>
+        <QuizCategory />
       </div>
     </div>
   );
