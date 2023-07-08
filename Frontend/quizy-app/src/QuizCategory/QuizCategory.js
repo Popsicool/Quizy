@@ -27,7 +27,7 @@ const ServiceCard = ({ title }) => {
     <li className="col-1-3">
       <div className="card-services">
         <h3 className="card-title">
-          <a href="#">{title}</a>
+          <a href="">{title}</a>
         </h3>
       </div>
     </li>
