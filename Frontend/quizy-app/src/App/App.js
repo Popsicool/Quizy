@@ -1,3 +1,4 @@
+
 import { Home } from '../components/Home'
 import { ToastContainer} from 'react-toastify';
 import { Routes, Route } from 'react-router-dom';
@@ -6,6 +7,8 @@ import { Auth } from '../AuthSection/Auth'
 import { useEffect, useState } from 'react';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function App() {
 
@@ -22,6 +25,7 @@ function App() {
               <Route path="/login" element= {<Auth/>}></Route>
               <Route path="*" element={<NotFound/>} />
       </Routes>
+
     </div>
   );
 }
