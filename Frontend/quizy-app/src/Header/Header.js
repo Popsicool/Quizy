@@ -4,23 +4,22 @@ import './Header.css';
 
 function Header() {
   return (
-    <div className="header_menu">
-      <img src={logo} alt="header" />
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <a className="navbar-brand" href="#"><img src={logo} alt="header" /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div className="menus">
-        <div className="home">
-          <h1>Home</h1>
-        </div>
-        <div className="about">
-          <h1>About</h1>
-        </div>
-        <div className="help">
-          <h1>Help</h1>
-        </div>
-        <div className="auth">
-          <h1>Sign Up/Log in</h1>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
+            <a className="nav-item nav-link active" href="#">Home</a>
+            <a className="nav-item nav-link" href="#">About</a>
+            <a className="nav-item nav-link" href="#">Log in</a>
+            <a className="nav-item nav-link" href="#">Sign up</a>
+          </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
