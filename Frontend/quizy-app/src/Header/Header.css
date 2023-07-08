@@ -28,13 +28,16 @@ h1 {
   padding: 0 20px;
 }
 
-.header_categories {
+.menus {
+  width: 40%;
+  padding: 0;
+  margin: 0;
   display: flex;
-  flex-direction: row;
-  width: 20%;
-  justify-content: space-around;
 }
 
-.categories {
-  position: relative;
+.home:hover,
+.about:hover,
+.auth:hover, .help:hover {
+  cursor: pointer;
+  background-color:  rgba(247, 87, 47,.7);
 }
