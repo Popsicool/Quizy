@@ -13,7 +13,9 @@ function Header() {
         <h1>About</h1>
         <h1>Help</h1>
       </div>
-      <h1>Sign Up/Log in</h1>
+      <h1>
+        
+        Sign Up/Log in</h1>
     </div>
   );
 }
