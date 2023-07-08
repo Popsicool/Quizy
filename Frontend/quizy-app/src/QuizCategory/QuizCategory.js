@@ -34,4 +34,4 @@ const ServiceCard = ({ title }) => {
   );
 };
 
-export default QuizCategory
+export default QuizCategory;

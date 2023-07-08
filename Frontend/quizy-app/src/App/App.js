@@ -1,4 +1,6 @@
 import HeroSection from '../HeroSection/HeroSection';
+import Header from '../Header/Header';
+import QuizCategory from '../QuizCategory/QuizCategory';
 import './App.css';
 
 function App() {
