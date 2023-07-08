@@ -1,0 +1,17 @@
+li {
+  font-size: .85rem;
+  list-style-type: none;
+  padding: 10px;
+  color: #fefefe;
+  background-color: black;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li:hover {
+  background-color: #3e3e3e;
+  font-size: .9rem;
+  border-bottom: #fefefe;
+}
