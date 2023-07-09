@@ -84,3 +84,47 @@ class ChangePasswordViewTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['message'],
                          'Password updated successfully')
+
+    def test_update_changepassword_incorrect(self):
+        self.client.force_authenticate(user=self.user)
+        data = {
+            'old_password': 'admi',
+            'new_password': 'updateadmin',
+        }
+        response = self.client.put(self.customers_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileViewTests(APITestCase):
+    customer_url = reverse('user-profile', args=[1])
+
+    def setUp(self) -> None:
+        self.client = APIClient()
+        self.user = UserData.objects.create_user(
+            username='admin', password='admin', email='bob.dylan.com')
+        self.user1 = UserData.objects.create_user(
+            id=1,
+            username='user1', password='user1', email='user1@example.com')
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.customers_url = reverse('user-profile', args=[self.user.id])
+
+    def test_userprofile_correct(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(self.customers_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {
+                         'username': 'admin',
+                         'first_name': '',
+                         'last_name': '',
+                         'email': 'bob.dylan.com'})
+
+    def test_userprofile_anothercorrectuser(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(self.customer_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {
+                         'username': 'user1',
+                         'first_name': '',
+                         'last_name': '',
+                         'email': 'user1@example.com'})
