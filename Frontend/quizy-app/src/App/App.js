@@ -1,10 +1,13 @@
-
-import { Home } from '../components/Home'
+import React from 'react';
 import { ToastContainer} from 'react-toastify';
-import { Routes, Route } from 'react-router-dom';
-import { NotFound } from '../components/NotFound';
-import { Auth } from '../AuthSection/Auth'
 import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Home } from "../components/Home";
+import About from "../About/About";
+import Help from "../Help/Help";
+import { Auth } from "../AuthSection/Auth";
+import { NotFound } from "../components/NotFound";
+import Header from '../Header/Header';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,15 +21,23 @@ function App() {
   }
 
   return (
+    <>
     <div className="App">
       <ToastContainer/>
-      <Routes>
-        <Route path="/" element= {<Home />}></Route>
-              <Route path="/login" element= {<Auth/>}></Route>
-              <Route path="*" element={<NotFound/>} />
-      </Routes>
-
+      <Header />
+      <Home />
+      <About />
+      <Help />
+      <Auth />
     </div>
+    <Routes>
+      <Route path="/" exact element={Home} />
+      <Route path="/about" element={About} />
+      <Route path="/help" element={Help} />
+      <Route path="/login" element={Auth} />
+      <Route path="/signup" element={NotFound} />
+    </Routes>
+  </>
   );
 }
 

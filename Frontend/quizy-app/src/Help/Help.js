@@ -1,15 +1,13 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-function About() {
+export default function Help() {
   return(
     <>
     <Helmet>
-      <title>Quizy - About</title>
+      <title>Quizy - Help</title>
     </Helmet>
-    <h1>Meet the developers</h1>
+    <h1>About Quizy App</h1>
     </>
   )
 }
-
-export default About;
