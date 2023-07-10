@@ -7,6 +7,10 @@ import { Auth } from '../AuthSection/Auth'
 import { useEffect, useState } from 'react';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
+import WebDevQuizPage from '../../src/components/WebDevQuizPage'
+import PhilosophyQuizPage from '../components/PhilosophyQuizPage';
+import MathsQuizPage from '../components/MathsQuizPage';
+import GetStarted from '../components/GetStarted';
 
 
 
@@ -24,6 +28,10 @@ function App() {
         <Route path="/" element= {<Home />}></Route>
               <Route path="/login" element= {<Auth/>}></Route>
               <Route path="*" element={<NotFound/>} />
+              <Route path="/webdev-quizzes" element={<WebDevQuizPage/>} />
+              <Route path="/maths-quizzes" element={<MathsQuizPage/>} />
+              <Route path="/philosophy-quizzes" element={<PhilosophyQuizPage/>} />
+              <Route path="/get-started" element={<GetStarted/>} />
       </Routes>
 
     </div>
