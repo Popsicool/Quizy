@@ -6,7 +6,7 @@ import './Header.css';
 function Header() {
   return (
     <>
-    <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#"><img src={logo} alt="header" width="40" className="d-inline-block" /><strong>Quizy App</strong></a>
       <div className="collapse navbar-collapse custom-flex" id="navbarNavAltMarkup">
         <div className="navbar-nav">
