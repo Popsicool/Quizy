@@ -51,8 +51,8 @@ class QuizzesView(APIView):
     def get(self, request):
         id = request.GET.get("id")
         quiz = get_object_or_404(Quizze, pk=id)
-        quizzes = Quizze.objects.all()
-        serializer = self.serializer_class(quizzes, many=True)
+        # quizzes = Quizze.objects.all()
+        serializer = self.serializer_class(quiz, many=False)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):

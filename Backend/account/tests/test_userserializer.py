@@ -1,7 +1,34 @@
 from rest_framework.test import APITestCase
 from rest_framework.exceptions import ValidationError
 from account.models import UserData
-from account.serializers import UserProfileSerializer
+from account.serializers import UserProfileSerializer, UserSerializer
+
+
+class UserSerializerTest(APITestCase):
+
+    def test_post_with_valid_data(self):
+        serializer = UserSerializer(data={
+            'email': 'user1@example.com',
+            'username': 'user1',
+            'first_name': 'user1',
+            'last_name': '1',
+            'password': 'testpwd'
+        })
+        # Check if the serializer is valid
+        self.assertTrue(serializer.is_valid())
+        user = serializer.save()
+        self.assertEqual(user.username, 'user1')
+        self.assertTrue(isinstance(user, UserData))
+
+    def test_post_with_invalid_data(self):
+        serializer = UserSerializer(data={
+            'email': 'user1@example.com',
+            'username': 'user1',
+            'first_name': 'user1',
+            'last_name': '1',
+        })
+        self.assertFalse(serializer.is_valid())
+        self.assertRaises(serializer.save(), AssertionError)
 
 
 class UserProfileSerializerTest(APITestCase):
