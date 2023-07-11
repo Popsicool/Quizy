@@ -16,6 +16,8 @@ import MathsQuizPage from '../components/MathsQuizPage';
 import GetStarted from '../components/GetStarted';
 import { RequireAuth } from '../AuthSection/RequireAuth';
 import { NotAuth } from '../AuthSection/NotAuth';
+import { Category } from '../Category/Category';
+import { QuizPage } from '../QuizPage/QuizPage';
 
 export const UserContext = createContext()
 function App() {
@@ -39,6 +41,8 @@ function App() {
           <Route path="/maths-quizzes" element={<MathsQuizPage/>} />
           <Route path="/philosophy-quizzes" element={<PhilosophyQuizPage/>} />
           <Route path="/get-started" element={<GetStarted/>} />
+          <Route path="/category/:name" element={<Category/>} />
+          <Route path="/quiz/:id" element={<QuizPage/>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </UserContext.Provider>

@@ -11,7 +11,7 @@ function Header() {
   return (
     <>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#"><img src={logo} alt="header" width="40" className="d-inline-block" /><strong>Quizy App</strong></a>
+      <Link to="/" className="navbar-brand"><img src={logo} alt="header" width="40" className="d-inline-block" /><strong>Quizy App</strong></Link>
       <div className="collapse navbar-collapse custom-flex" id="navbarNavAltMarkup">
         <div className="navbar-nav">
           <li className="nav-item nav-link active"><Link to="/">Home</Link></li>
