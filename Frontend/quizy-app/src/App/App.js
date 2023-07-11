@@ -20,8 +20,7 @@ import { QuizPage } from '../QuizPage/QuizPage';
 
 export const UserContext = createContext()
 function App() {
-
-  const [user, setUser] = useState(localStorage.getItem("QuizyUser") ? JSON.parse(localStorage.getItem("QuizyUser")) : null)
+  const [user, setUser] = useState(localStorage.getItem("QuizyUser") ? JSON.parse(localStorage.getItem("QuizyUser")) : null);
   const signIn = (props) => {
     localStorage.setItem("QuizyUser", JSON.stringify(props))
     setUser(props)
