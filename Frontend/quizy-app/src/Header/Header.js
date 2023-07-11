@@ -7,7 +7,6 @@ import './Header.css';
 
 function Header() {
   const user = useContext(UserContext).user
-  const navigate = useNavigate()
   return (
     <>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
