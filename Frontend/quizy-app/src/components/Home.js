@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Header from '../Header/Header';
 import HeroSection from '../HeroSection/HeroSection';
 import QuizCategory from '../QuizCategory/QuizCategory';
 import Footer from '../Footer/Footer'
@@ -10,6 +11,9 @@ export const Home = () => {
       <Helmet>
         <title>Quizzy - Home</title>
       </Helmet>
+      <div className='header'>
+        <Header />
+      </div>
       <div className='hero_section'>
         <HeroSection />
       </div>
