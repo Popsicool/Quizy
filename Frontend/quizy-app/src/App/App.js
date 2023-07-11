@@ -18,6 +18,8 @@ import { RequireAuth } from '../AuthSection/RequireAuth';
 import { NotAuth } from '../AuthSection/NotAuth';
 import { Category } from '../Category/Category';
 import { QuizPage } from '../QuizPage/QuizPage';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 export const UserContext = createContext()
 function App() {
@@ -32,6 +34,7 @@ function App() {
     <div className="App">
       <UserContext.Provider value={{signIn, user}}>
         <ToastContainer/>
+        <Header/>
         <Routes>
           <Route path="/" exact element= {<Home />} />
           <Route path="/login" element= {<NotAuth> <Auth/> </NotAuth>} />
@@ -42,10 +45,11 @@ function App() {
           <Route path="/philosophy-quizzes" element={<PhilosophyQuizPage/>} />
           <Route path="/get-started" element={<GetStarted/>} />
           <Route path="/category/:name" element={<Category/>} />
-          <Route path="/quiz/:id" element={<QuizPage/>} />
+          <Route path="/quiz/:id" element={<RequireAuth><QuizPage/></RequireAuth>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </UserContext.Provider>
+      <Footer/>
     </div>
   );
 }

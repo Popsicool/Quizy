@@ -3,8 +3,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../components/Loading';
 import { UserContext } from '../App/App';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+
 import './auth.css'
 import login from '../assets/logins.jpg'
 
@@ -56,7 +55,7 @@ export const Auth = () => {
   const submitSignin = (e) => {
     e.preventDefault()
     setIsLoading(true)
-    const signinForm = {"email": signinEmail, "username" : SigninName, "password": SigninPass}
+    const signinForm = {"email": signinEmail, "username" : SigninName, "password": SigninPass, "first_name": SigninFirstName, "last_name": SigninLastName}
     fetch("https://quizy.popsicool.tech/api/v1/auth/sign_up", {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
@@ -75,9 +74,9 @@ export const Auth = () => {
         setShowLogin(true)
     })
     .catch((err) => {
-      console.log(err.Error)
+      console.error(err.message)
       setIsLoading(false)
-      toast.error("Username already exist", {
+      toast.error("Username or Email already exist", {
       position:"top-right"
     })
 
@@ -85,7 +84,6 @@ export const Auth = () => {
   }
   return (
     <>
-    <Header/>
       {isloading ? <Loading/> :
       <div className='row'>
         <div className='col-md-6'>
@@ -155,7 +153,8 @@ export const Auth = () => {
                   <button type="submit" className="btn btn-primary btn-block mb-4">Create Account</button>
 
                   <div className="text-center">
-                    <p>Already have an account? <button type="button" onClick={() => setShowLogin(true)} className='btn btn-warning'>Login</button> now</p>
+                    {/* <p>Don't have an account? <button type="button" onClick={() => setShowLogin(true)} className='btn btn-warning'>Login</button> now</p> */}
+                    <p>Don't have an account? Click <span className='fw-bold' style={{color:'red'}} onClick={() => setShowLogin(true)} >Here</span> to log in</p>
                   </div>
                 </form>
           </div>
@@ -163,7 +162,6 @@ export const Auth = () => {
         </div>
       </div>
       }
-      <Footer/>
     </>
   )
 }
