@@ -1,5 +1,4 @@
-
-import { Home } from '../components/Home'
+import { Home } from '../components/Home';
 import { ToastContainer} from 'react-toastify';
 import { Routes, Route } from 'react-router-dom';
 import {Team} from '../About/Team'
@@ -31,6 +30,7 @@ function App() {
   }
 
   return (
+    <>
     <div className="App">
       <UserContext.Provider value={{signIn, user}}>
         <ToastContainer/>
@@ -51,6 +51,7 @@ function App() {
       </UserContext.Provider>
       <Footer/>
     </div>
+    </>
   );
 }
 

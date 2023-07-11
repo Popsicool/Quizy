@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Header from '../Header/Header';
 import HeroSection from '../HeroSection/HeroSection';
 import QuizCategory from '../QuizCategory/QuizCategory';
 import { Helmet } from 'react-helmet'
