@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react'
 import categoryImg from '../assets/landing-page.jpg'
 import categoryImg1 from '../assets/sign-in.jpg'
 import categoryImg2 from '../assets/log-in.jpg'
+import categoryImg3 from '../assets/maths.jpg'
+import categoryImg4 from '../assets/science.jpg'
 import './QuizCategory.css'
 import { Link } from 'react-router-dom'
 
 const QuizCategory = () => {
   const [categories, setCategories] = useState([])
-  const catImages = [categoryImg, categoryImg1, categoryImg2]
+  const catImages = [categoryImg, categoryImg1, categoryImg2, categoryImg3, categoryImg4]
   useEffect(()=>{
     const url = "https://quizy.popsicool.tech/api/v1/category"
 
