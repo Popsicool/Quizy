@@ -56,13 +56,14 @@ export const Auth = () => {
     e.preventDefault()
     setIsLoading(true)
     const signinForm = {"email": signinEmail, "username" : SigninName, "password": SigninPass}
-    fetch("https://quizy.popsicool.tech/api/token", {
+    fetch("https://quizy.popsicool.tech/api/v1/auth/sign_up", {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(signinForm)})
     .then(res => {
       if (!res.ok){
-        throw Error(res)
+        return res.json().then(response => {
+          throw new Error(response)})
       }
         return res.json()
     })
@@ -72,7 +73,8 @@ export const Auth = () => {
         position:"top-right"})
         setShowLogin(true)
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err.Error)
       setIsLoading(false)
       toast.error("Username already exist", {
       position:"top-right"
