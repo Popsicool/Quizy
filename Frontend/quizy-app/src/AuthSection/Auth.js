@@ -2,6 +2,9 @@ import React, { useState, useContext } from 'react'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../components/Loading';
+import { UserContext } from '../App/App';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import './auth.css'
 
 
@@ -19,12 +22,13 @@ export const Auth = () => {
 
 
   const navigate = useNavigate()
+  const signIn = useContext(UserContext).signIn
 
   const submitLogin = (e) => {
     e.preventDefault()
     setIsLoading(true)
     const loginForm ={"email": loginEmail, "password": loginPass}
-    fetch("http://localhost:8000/api/token", {
+    fetch("https://quizy.popsicool.tech/api/token", {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(loginForm)})
@@ -38,6 +42,7 @@ export const Auth = () => {
       setIsLoading(false)
       toast.success("Login Successful", {
         position:"top-right"})
+        signIn(result)
         navigate("/", {replace: true})
     })
     .catch(() =>{
@@ -51,7 +56,7 @@ export const Auth = () => {
     e.preventDefault()
     setIsLoading(true)
     const signinForm = {"email": signinEmail, "username" : SigninName, "password": SigninPass}
-    fetch("http://localhost:8000/api/token", {
+    fetch("https://quizy.popsicool.tech/api/token", {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(signinForm)})
@@ -77,6 +82,7 @@ export const Auth = () => {
   }
   return (
     <>
+    <Header/>
       {isloading ? <Loading/> :
       <div className='row'>
         <div className='col-md-6'>
@@ -154,6 +160,7 @@ export const Auth = () => {
         </div>
       </div>
       }
+      <Footer/>
     </>
   )
 }
