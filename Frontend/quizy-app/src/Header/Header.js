@@ -10,11 +10,11 @@ function Header() {
       <a className="navbar-brand" href="#"><img src={logo} alt="header" width="40" className="d-inline-block" /><strong>Quizy App</strong></a>
       <div className="collapse navbar-collapse custom-flex" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <li className="nav-item nav-link active"><Link to="/">Home</Link></li>
-          <li className="nav-item nav-link"><Link to="/about">About</Link></li>
-          <li className="nav-item nav-link"><Link to="/help">Help</Link></li>
-          <li className="nav-item nav-link"><Link to="/login">Log In</Link></li>
-          <li className="nav-item nav-link"><Link to="/signup">Sign Up</Link></li>
+          <li><Link to="/" className="nav-item nav-link active">Home</Link></li>
+          <li><Link to="/about" className="nav-item nav-link">About</Link></li>
+          <li><Link to="/help" className="nav-item nav-link">Help</Link></li>
+          <li><Link to="/login" className="nav-item nav-link">Log In</Link></li>
+          <li><Link to="/signup" className="nav-item nav-link">Sign Up</Link></li>
         </div>
       </div>
     </nav>

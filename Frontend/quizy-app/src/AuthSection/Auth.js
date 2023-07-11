@@ -47,7 +47,7 @@ export const Auth = () => {
     })
     });
   }
-  const submitSignin = (e) => {
+ const submitSignin = (e) => {
     e.preventDefault()
     setIsLoading(true)
     const signinForm = {"email": signinEmail, "username" : SigninName, "password": SigninPass}
