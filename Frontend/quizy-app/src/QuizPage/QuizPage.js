@@ -6,7 +6,7 @@ export const QuizPage = () => {
     const [questions, setQuestions] = useState([])
     const {id} = useParams()
     useEffect(()=>{
-    const url = `http://localhost:8000/api/v1/quiz?id=${id}`
+    const url = `https://quizy.popsicool.tech//api/v1/quiz?id=${id}`
         fetch(url)
         .then(res => {
         return res.json()
