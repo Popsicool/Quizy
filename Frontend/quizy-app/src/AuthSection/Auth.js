@@ -6,6 +6,7 @@ import { UserContext } from '../App/App';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import './auth.css'
+import login from '../assets/logins.jpg'
 
 
 export const Auth = () => {
@@ -86,7 +87,7 @@ export const Auth = () => {
       {isloading ? <Loading/> :
       <div className='row'>
         <div className='col-md-6'>
-          <img src="" width= '100%' height= '100%'/>
+          <img src={login} width= '100%' height= '100%'/>
         </div>
         <div className='col-md-6'>
           {showLogin ?
@@ -110,7 +111,7 @@ export const Auth = () => {
               <button type="submit" className="btn btn-primary btn-block mb-4">Log in</button>
 
               <div className="text-center">
-                <p>Don't have an account? Click <span onClick={() => setShowLogin(false)} >Here</span> to create one now</p>
+                <p>Don't have an account? Click <span className='fw-bold' style={{color:'red'}} onClick={() => setShowLogin(false)} >Here</span> to create one now</p>
               </div>
             </form>
           </div> :
