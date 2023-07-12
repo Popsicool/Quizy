@@ -100,9 +100,21 @@ WSGI_APPLICATION = 'quizy.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
 DATABASES = {
-    "default": dj_database_url.parse(config('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_rest_db',
+        'USER': 'django_rest_user',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
+
+# DATABASES = {
+#     "default": dj_database_url.parse(config('DATABASE_URL'))
+# }
 
 
 # Password validation
