@@ -116,11 +116,13 @@ export const QuizPage = () => {
             window.location.reload()
         });
     }
+    
   return (
     <>
     <Helmet>
         <title>Quizy - quiz page</title>
       </Helmet>
+      
         {loading ? <Loading/> :
             <>
                 <div className="container">
@@ -175,12 +177,12 @@ export const QuizPage = () => {
                                 </div>
 
                                 <div className='d-flex justify-content-start  mt-4'>
-                                    <button className='m-4' onClick={() => prev()}>
+                                    <button className='m-4 btn-outline-success' onClick={() => prev()}>
                                         <FontAwesomeIcon icon={faArrowLeft} className='me-2' />
                                         Previous
                                     </button>
                                     {pos !== questions.length - 1 ?
-                                        <button className='m-4' onClick={() => next()}>
+                                        <button className='m-4 btn-outline-success' onClick={() => next()}>
                                             Next
                                             <FontAwesomeIcon icon={faArrowRight} className='ms-2' />
                                         </button>
@@ -190,7 +192,7 @@ export const QuizPage = () => {
                                         </button>
                                 }
 
-                                    <a href="/" className='m-4'>
+                                    <a href="/" className='m-4 btn-outline-danger'>
                                         Quit
                                         <FontAwesomeIcon icon={faSignOutAlt} className='ms-2' />
                                     </a>
