@@ -43,7 +43,7 @@ function Header() {
             </Link>
             {user ? (
               <span
-                className="nav-link "
+                className="nav-link fs-5 text-secondary fw-bold"
                 onClick={() => {
                   localStorage.removeItem("QuizyUser");
                   window.location.reload();

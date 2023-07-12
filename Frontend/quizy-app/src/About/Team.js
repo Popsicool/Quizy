@@ -2,6 +2,8 @@ import React from 'react'
 import { Helmet } from "react-helmet";
 import pop from "../assets/teams/pop.jpg"
 import Ben from "../assets/teams/Bennet.jpg"
+import "./team.css"
+
 export const Team = () => {
   const team = [
     {
