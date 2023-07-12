@@ -10,16 +10,15 @@ export const Home = () => {
       <Helmet>
         <title>Quizzy - Home</title>
       </Helmet>
-      <div className='header'>
-      </div>
+      
+      
       <div className='hero_section'>
         <HeroSection />
       </div>
       <div className='main_category'>
         <QuizCategory />
       </div>
-      <div className='footer'>
-      </div>
+      
       </>
   )
 }
