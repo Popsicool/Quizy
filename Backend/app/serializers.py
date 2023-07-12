@@ -96,6 +96,7 @@ class HistorySerializer(serializers.ModelSerializer):
         model = History
         fields = ["quiz","grade", "date"]
 class GetQuizSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only = True)
     class Meta:
         model  = Quizze
-        fields = ["owner", "title", "participants", "created"]
+        fields = ["id", "owner", "title", "participants", "created"]
