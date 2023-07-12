@@ -1,15 +1,14 @@
 import React from 'react'
 import { Helmet } from "react-helmet";
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 import pop from "../assets/teams/pop.jpg"
+import Ben from "../assets/teams/Bennet.jpg"
 export const Team = () => {
   const team = [
     {
       "name" : "AKINOLA SAMSON",
       "title" : "Software Engineer",
       "text" : "An experienced Fullstack software enginner with many software skills in his arsenal, A certified Animal scientist",
-      "image": {pop},
+      "image": pop,
       "fb": "mailto:akinolasamson1234@gmail.com",
       "ln": "https://www.linkedin.com/in/akinola-samson-438458124",
       "tw": "https://twitter.com/Samson_Akinola1",
@@ -19,7 +18,7 @@ export const Team = () => {
       "name" : "BENNET UKOH",
       "title" : "Software Engineer",
       "text" : "An experienced Fullstack software enginner with many software skills in his arsenal, A certified Animal scientist",
-      "image": "./images/teams/pop.jpg",
+      "image": Ben,
       "fb": "mailto:akinolasamson1234@gmail.com",
       "ln": "https://www.linkedin.com/in/akinola-samson-438458124",
       "tw": "https://twitter.com/Samson_Akinola1",
@@ -51,17 +50,16 @@ export const Team = () => {
       <Helmet>
         <title>Quizy - About</title>
       </Helmet>
-      < Header/>
     <section className="main-Team">
       <div className='container'>
-        <h1 className="text-center oA"><b>MEET THE DEVELOPERS</b></h1>
+        <h1 className="text-center oA m-4"><b>MEET THE DEVELOPERS</b></h1>
 			  <br/><br/>
         <div className='row'>
           {team.map((staff) => (
             <div className="col-lg-6 col-md-6 col-sm-12 mb-4" key={staff.name}>
               <div className="profile-card bg-white shadow mb-4 text-center rounded-lg p-4 position-relative h-100">
                  <div className="profile-card_image">
-                  <img src={staff.image} alt="User" className="mb-4 shadow"/>
+                  <img src={staff.image} alt="User" className="mb-4 shadow" width={250} height={250}/>
                 </div>
                 <div className="profile-card_details">
                   <h3 className="mb-0 text-dark">{staff.name}</h3>
@@ -93,7 +91,6 @@ export const Team = () => {
         </div>
       </div>
     </section>
-    <Footer/>
   </>
   )
 }

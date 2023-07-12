@@ -8,7 +8,7 @@ const HeroSection = () => {
       <div className='hero-content'>
       <h1 className="display-4">Welcome to Quizy App</h1>
       <p className="lead">Have fun with interesting Quizzes</p>
-      <Link to={"/get-started" } className="btn btn-primary btn-lg">Get Started</Link>
+      <Link to={"/login" } className="btn btn-primary btn-lg">Get Started</Link>
       </div>
     </div>
   );
