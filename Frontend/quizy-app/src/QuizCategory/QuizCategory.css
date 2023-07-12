@@ -20,6 +20,7 @@
 .card:hover {
   transform: scale(0.99);
   box-shadow: 0 0 10px rgba(179, 14, 14, 0.26);
+
 }
 
 .card:active {
@@ -33,4 +34,7 @@
 .card:hover .card-title,
 .card:hover .card-text {
   color: #be0808;
+}
+.card:hover .card-title {
+  font-weight: bold;
 }
