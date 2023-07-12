@@ -1,3 +1,5 @@
+from typing import Any
+from django import http
 from django.urls import path, reverse, include, resolve
 from django.test import SimpleTestCase
 from app.views import (ping, ContactMessage, QuizzesView,
@@ -8,6 +10,7 @@ from rest_framework import status
 from django.db import connections, DEFAULT_DB_ALIAS
 from django.contrib.auth.models import User
 from account.models import UserData
+from app.models import Quizze, CategoryModel, Question, History
 from rest_framework.views import APIView
 
 
@@ -198,3 +201,60 @@ class ContactMessageViewTest(APITestCase):
         response = self.client.patch(self.customers_url)
         self.assertEqual(response.status_code,
                          status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class QuizzesViewTest(APITestCase):
+    """ test suite for the QuizzesView """
+    customers_url = reverse('quiz')
+
+    def setUp(self):
+        """ create a necessary instances client and Authenticated user for tests"""
+        self.client = APIClient()
+
+        # create User
+        self.user = UserData.objects.create_user(
+            username='admin', password='admin', email='bob.dylan.com')
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+        # create category
+        self.category = CategoryModel.objects.create(name='test_category')
+
+        # create Quiz
+        self.quiz = Quizze.objects.create(
+            owner=self.user,
+            title='test quiz',
+        )
+        self.quiz.category.set([self.category])
+
+    def test_valid_quiz_get(self):
+        """ testing a valid get requst on the url"""
+        self.client.force_authenticate(user=self.user)
+        data = {'id': self.quiz.id}
+        response = self.client.get(self.customers_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {'id': self.quiz.id, 'title': 'test quiz', 'questions': [
+        ], 'category': [dict([('name', 'test_category')])], 'participants': 0})
+
+    def test_invalid_data_quiz_get(self):
+        """ testing an invalid data for get requst on the url"""
+        self.client.force_authenticate(user=self.user)
+        data = {'ids': '1'}
+        response = self.client.get(self.customers_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_invalid_data_quiz_get(self):
+        """ testing an invalid id for get requst on the url"""
+
+        self.client.force_authenticate(user=self.user)
+        # testing id that doesnt exist in database
+        data = {'id': '0'}
+        response = self.client.get(self.customers_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.reason_phrase, 'Not Found')
+        # testing invliad datatype
+        data = {'id': 'a'}
+        with self.assertRaises(ValueError) as err:
+            self.client.get(self.customers_url, data, format='json')
+        self.assertEqual(str(err.exception),
+                         "Field 'id' expected a number but got 'a'.")
