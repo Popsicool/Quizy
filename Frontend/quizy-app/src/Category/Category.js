@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Card, Button } from 'react-bootstrap';
 import { Loading } from '../components/Loading';
 import categoryImg from '../assets/landing-page.jpg';
 import categoryImg1 from '../assets/hero-section.jpg';
@@ -26,7 +25,7 @@ export const Category = () => {
         setLoading(false)
         setQuizzes(data);
       });
-  }, []);
+  }, [name]);
  // Shuffle the catImages array
  const shuffledCatImages = [...catImages].sort(() => Math.random() - 0.5);
 
@@ -42,17 +41,17 @@ export const Category = () => {
       <div className=' fw-bold m-4'><h2 className='text-muted mt-4 text-center'>Select a quiz and get started</h2></div>
         <div className='row row-cols-3 mt-4 mb-4 d-flex justify-content-center'>
           {quizzes.map((quiz, index) => (
-         
+
             <Link to={`/quiz/${quiz.id}`} key={quiz.id} className="card m-2" style={{ width: '20rem' }}>
             <img src={shuffledCatImages[index % shuffledCatImages.length]} className="card-img-top" alt="..." />
               <div className='card-body'>
-                <div className='card-title '>{name} Quiz</div>
+                <div className='card-title '>{quiz.title}</div>
                 <div className='card-text'>
-                  Category Created on {new Date(quiz.created).toString()}
+                   Created on {new Date(quiz.created).toUTCString()}
                 </div>
-                  
+
               </div>
-              
+
             </Link>
           ))}
       </div>

@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import logo from '../assets/quiz-icon.jpg';
 import { UserContext } from '../App/App';
 import { NavLink, Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
 import './Header.css';
 
 function Header() {
