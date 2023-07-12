@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import logo from '../assets/quiz-icon.jpg';
 import { UserContext } from '../App/App';
-import { Link} from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
 
@@ -32,15 +32,15 @@ function Header() {
         </button>
         <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
           <div className="navbar-nav ml-auto m-4 align-items-end">
-            <Link to="/" className="nav-link fs-5 text-secondary fw-bold" >
+            <NavLink exact to="/" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
               Home
-            </Link>
-            <Link to="/about" className="nav-link fs-5 text-secondary fw-bold">
+            </NavLink>
+            <NavLink to="/about" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
               About
-            </Link>
-            <Link to="/help" className="nav-link fs-5 text-secondary fw-bold">
+            </NavLink>
+            <NavLink to="/help" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
               Help
-            </Link>
+            </NavLink>
             {user ? (
               <span
                 className="nav-link fs-5 text-secondary fw-bold"
@@ -52,9 +52,9 @@ function Header() {
                 Log Out
               </span>
             ) : (
-              <Link to="/login" className="nav-link fs-5 text-secondary fw-bold">
+              <NavLink to="/login" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
                 Log In
-              </Link>
+              </NavLink>
             )}
           </div>
         </div>
