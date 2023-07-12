@@ -414,3 +414,9 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/react,node,django,python
+
+Backend/*/fixtures
+Backend/parse*
+Backend/open_trivia.json
+Backend/users.json
+.vscode

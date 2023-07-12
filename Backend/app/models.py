@@ -4,10 +4,13 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext as _
 
+
 class CategoryModel(models.Model):
-    name = models.CharField(max_length = 50, null = True, blank=True, unique= True)
+    name = models.CharField(max_length=50, null=True, blank=True, unique=True)
+
     def __str__(self):
         return self.name
+
 
 class Question(models.Model):
     CHOICES = (
@@ -16,30 +19,35 @@ class Question(models.Model):
         ('C', 'C'),
         ('D', 'D'),
     )
-    quiz = models.ForeignKey("app.Quizze", on_delete = models.CASCADE)
+    quiz = models.ForeignKey("app.Quizze", on_delete=models.CASCADE)
     question = models.TextField()
     A = models.TextField()
     B = models.TextField()
     C = models.TextField()
     D = models.TextField()
-    answer = models.CharField(max_length=1, choices = CHOICES)
+    answer = models.CharField(max_length=1, choices=CHOICES)
+
 
 class Quizze(models.Model):
-    owner = models.ForeignKey(UserData, on_delete= models.CASCADE)
+    owner = models.ForeignKey(UserData, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     category = models.ManyToManyField(CategoryModel)
-    participants = models.IntegerField(default = 0)
+    participants = models.IntegerField(default=0)
     created = models.DateTimeField(_("Created"), auto_now_add=True)
+
     def __str__(self):
         return f"{self.title} by {self.owner.username}"
+
     @property
     def questions(self):
         return self.question_set.all()
+
+
 class History(models.Model):
-    quiz = models.ForeignKey(Quizze, on_delete = models.SET_NULL, null=True)
+    quiz = models.ForeignKey(Quizze, on_delete=models.SET_NULL, null=True)
     grade = models.IntegerField()
     date = models.DateTimeField(_("Date"), auto_now_add=True)
-    user = models.ForeignKey(UserData, on_delete = models.CASCADE)
+    user = models.ForeignKey(UserData, on_delete=models.CASCADE)
 
 # class History(models.Model):
 #     quizzes = models.ManyToManyField(Grades)
