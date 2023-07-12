@@ -18,9 +18,20 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class CatExists(serializers.ModelSerializer):
+    """ serialzer for validating category """
+
     def validate(self, attrs):
+        """ validates the category"""
+        # print(type(attrs).__dict__)
+
+        # # check if category is given
+        # if 'name' not in attrs.keys():
+        #     raise serializers.ValidationError('No category given')
+
+        # check if category exists
         if not CategoryModel.objects.filter(name=attrs["name"]).exists():
             raise serializers.ValidationError("category does not exist")
+
         return attrs
     name = serializers.CharField(max_length=100)
 
@@ -51,7 +62,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class QuizzeSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True)
-    category = CatExists(many=True)
+    category = CatExists(many=True, min_length=1)
     id = serializers.IntegerField(read_only=True)
     participants = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=250)
