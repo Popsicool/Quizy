@@ -112,91 +112,91 @@ export const QuizPage = () => {
             position:"top-right"
             })
             localStorage.removeItem("QuizyUser")
-            navigate("login", {replace: true})
+            navigate("/login", {replace: true})
         });
     }
   return (
     <>
         {loading ? <Loading/> :
             <>
-            <div className="container">
+                <div className="container">
 
-                {modal ? <div className='modal-container'>
-                <div className='mud'>
-                    <div>
-                        <h3>You Scored {grade}</h3>
-                        <p>Your Score has been recorded</p>
-                        <Link to="/">Go Home</Link>
+                    {modal ? <div className='modal-container'>
+                    <div className='mud'>
+                        <div>
+                            <h3>You Scored {grade}</h3>
+                            <p>Your Score has been recorded</p>
+                            <Link to="/">Go Home</Link>
+                        </div>
                     </div>
-                </div>
-            </div>:
+                </div> :
                     <>
-                        <div className='m-4 '>
-                            {quiz &&
-                                <h1>{quiz.title}</h1>
-                            }
-                            <hr className='border-primary' />
-                        </div>
-
-                        <div className='m-4 d-flex justify-content-between align-items-center'>
-                            <p>{pos + 1} of {questions.length}</p>
-                            <div className='d-flex align-items-center'>
-                                <FontAwesomeIcon icon={faClock} />
-                                <time>2:09</time>
-                            </div>
-                        </div>
-                        {curr &&
-                        <div className='container border-start border-thick border-secondary border-4'>
-                            <div className='m-4'>
-                                <p className="fw-bold m-2" style={{ color: 'grey' }}>{curr.question}</p>
+                            <div className='m-4 '>
+                                {quiz &&
+                                    <h1>{quiz.title}</h1>
+                                }
+                                <hr className='border-primary' />
                             </div>
 
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col">
-                                        <button className="rounded-pill btn btn-primary btn-block m-2" onClick={() => mark("A")} style={{ width: '30rem' }}>{curr.A}</button>
-                                    </div>
-                                    <div className="col">
-                                        <button className="rounded-pill btn btn-primary btn-block m-2" onClick={() => mark("B")} style={{ width: '30rem' }}>{curr.B}</button>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col">
-                                        <button className="rounded-pill btn btn-primary btn-block m-2" onClick={() => mark("C")} style={{ width: '30rem' }}>{curr.C}</button>
-                                    </div>
-                                    <div className="col">
-                                        <button className="rounded-pill btn btn-primary btn-block m-2" onClick={() => mark("D")} style={{ width: '30rem' }}>{curr.D}</button>
-                                    </div>
+                            <div className='m-4 d-flex justify-content-between align-items-center'>
+                                <p>{pos + 1} of {questions.length}</p>
+                                <div className='d-flex align-items-center'>
+                                    <FontAwesomeIcon icon={faClock} />
+                                    <time>2:09</time>
                                 </div>
                             </div>
+                            {curr &&
+                            <div className='container border-start border-thick border-secondary border-4'>
+                                <div className='m-4'>
+                                    <p className="fw-bold m-2" style={{ color: 'grey' }}>{curr.question}</p>
+                                </div>
 
-                            <div className='d-flex justify-content-start  mt-4'>
-                                <button className='m-4' onClick={() => prev()}>
-                                    <FontAwesomeIcon icon={faArrowLeft} className='me-2' />
-                                    Previous
-                                </button>
-                                {pos !== questions.length - 1 ?
-                                    <button className='m-4' onClick={() => next()}>
-                                        Next
-                                        <FontAwesomeIcon icon={faArrowRight} className='ms-2' />
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col">
+                                            <button className="rounded-pill btn btn-primary btn-block m-2" onClick={() => mark("A")} style={{ width: '30rem' }}>{curr.A}</button>
+                                        </div>
+                                        <div className="col">
+                                            <button className="rounded-pill btn btn-primary btn-block m-2" onClick={() => mark("B")} style={{ width: '30rem' }}>{curr.B}</button>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col">
+                                            <button className="rounded-pill btn btn-primary btn-block m-2" onClick={() => mark("C")} style={{ width: '30rem' }}>{curr.C}</button>
+                                        </div>
+                                        <div className="col">
+                                            <button className="rounded-pill btn btn-primary btn-block m-2" onClick={() => mark("D")} style={{ width: '30rem' }}>{curr.D}</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='d-flex justify-content-start  mt-4'>
+                                    <button className='m-4' onClick={() => prev()}>
+                                        <FontAwesomeIcon icon={faArrowLeft} className='me-2' />
+                                        Previous
                                     </button>
-                                    :
-                                    <button className='m-4' onClick={() => submit()}>
-                                        Submit
-                                    </button>
-                            }
+                                    {pos !== questions.length - 1 ?
+                                        <button className='m-4' onClick={() => next()}>
+                                            Next
+                                            <FontAwesomeIcon icon={faArrowRight} className='ms-2' />
+                                        </button>
+                                        :
+                                        <button className='m-4' onClick={() => submit()}>
+                                            Submit
+                                        </button>
+                                }
 
-                                <a href="/" className='m-4'>
-                                    Quit
-                                    <FontAwesomeIcon icon={faSignOutAlt} className='ms-2' />
-                                </a>
+                                    <a href="/" className='m-4'>
+                                        Quit
+                                        <FontAwesomeIcon icon={faSignOutAlt} className='ms-2' />
+                                    </a>
 
+                                </div>
                             </div>
-                        </div>
+                            }
+                            </>
                         }
-                        </>
-                    }
-                </div>
+                    </div>
             </>
 
         }
