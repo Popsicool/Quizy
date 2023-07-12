@@ -2,8 +2,11 @@
   display: flex;
   justify-content: space-between;
 }
+
 .nav-link {
   position: relative;
+  transition: background-color 0.3s ease-in-out;
+  transform: scale(0.9);
 }
 
 .nav-link::after {
@@ -21,7 +24,20 @@
 .nav-link:hover::after {
   transform: scaleX(1);
 }
-.nav-link {
-  transition: background-color 0.3s ease-in-out;
+
+.nav-link:hover {
+  color: #be0808;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(179, 14, 14, 0.26);
 }
 
+.nav-link.active {
+  color: #be0808;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(179, 14, 14, 0.26);
+}
+
+.nav {
+  transition: transform 0.4s ease;
+  text-decoration: none;
+}
