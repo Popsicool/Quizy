@@ -1,7 +1,37 @@
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework.exceptions import ValidationError
 from account.models import UserData
-from account.serializers import UserProfileSerializer
+from account.serializers import (UserProfileSerializer,
+                                 UserSerializer,
+                                 ChangePasswordSerializer)
+
+
+class UserSerializerTest(APITestCase):
+
+    def test_post_with_valid_data(self):
+        serializer = UserSerializer(data={
+            'email': 'user1@example.com',
+            'username': 'user1',
+            'first_name': 'user1',
+            'last_name': '1',
+            'password': 'testpwd'
+        })
+        # Check if the serializer is valid
+        self.assertTrue(serializer.is_valid())
+        user = serializer.save()
+        self.assertEqual(user.username, 'user1')
+        self.assertTrue(isinstance(user, UserData))
+
+    def test_post_with_invalid_data(self):
+        serializer = UserSerializer(data={
+            'email': 'user1@example.com',
+            'username': 'user1',
+            'first_name': 'user1',
+            'last_name': '1',
+        })
+        self.assertFalse(serializer.is_valid())
+        self.assertRaises(ValidationError, serializer.is_valid,
+                          raise_exception=True)
 
 
 class UserProfileSerializerTest(APITestCase):
@@ -45,3 +75,33 @@ class UserProfileSerializerTest(APITestCase):
         # Check if the serializer is invalid
         self.assertFalse(serializer.is_valid())
         # Check the output of the serializer errors
+        self.assertRaises(ValidationError, serializer.is_valid,
+                          raise_exception=True)
+
+
+# class ChangePasswordSerializerTestCase(APITestCase):
+#     def setUp(self):
+#         # Create a test user
+#         self.user = UserData.objects.create_user(
+#             username="testuser", email="testuser@gmail.com", password="testpass")
+#         # Create a test client
+#         self.client = APIClient()
+#         # Authenticate the client with the test user
+
+#     def test_change_password_serializer_success(self):
+#         self.client.force_authenticate(user=self.user)
+#         # Test that the serializer is valid and changes the password with valid data
+#         data = {"old_password": "testpass", "new_password": "newpass"}
+#         serializer = ChangePasswordSerializer(data=data)
+#         self.assertTrue(serializer.is_valid())
+#         serializer.save()
+#         # Test that the user can authenticate with the new password
+#         self.assertTrue(self.user.check_password("testpass"))
+
+#     def test_change_password_serializer_fail(self):
+#         self.client.force_authenticate(user=self.user)
+#         # Test that the serializer is invalid and raises a ValidationError with invalid data
+#         data = {"old_password": "wrongpass", "new_password": "newpass"}
+#         serializer = ChangePasswordSerializer(data=data)
+#         self.assertFalse(serializer.is_valid())
+#         self.assertRaises(ValidationError, serializer.save, user=self.user)

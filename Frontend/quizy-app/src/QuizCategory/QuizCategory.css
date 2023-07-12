@@ -12,3 +12,29 @@
   font-size: 16px;
   color: #000;
 }
+.card {
+  transition: transform 0.4s ease;
+  text-decoration: none;
+}
+
+.card:hover {
+  transform: scale(0.99);
+  box-shadow: 0 0 10px rgba(179, 14, 14, 0.26);
+
+}
+
+.card:active {
+  transform: scale(0.9);
+}
+.card-title,
+.card-text {
+  color: #000;
+}
+
+.card:hover .card-title,
+.card:hover .card-text {
+  color: #be0808;
+}
+.card:hover .card-title {
+  font-weight: bold;
+}

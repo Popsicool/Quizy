@@ -1,36 +1,63 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import logo from '../assets/quiz-icon.jpg';
 import { UserContext } from '../App/App';
-import { Link } from "react-router-dom"
-import { useNavigate } from 'react-router-dom';
+import { NavLink, Link } from "react-router-dom";
 import './Header.css';
 
 function Header() {
-  const user = useContext(UserContext).user
+  const user = useContext(UserContext).user;
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
   return (
     <>
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
-        <Link to="/" className="navbar-brand"><img src={logo} alt="header" width="40" className="d-inline-block" /><strong>Quizy App</strong></Link>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <Link to="/" className="navbar-brand">
+          <img src={logo} alt="header" width="40" className="d-inline-block ms-4" />
+          <strong>Quizy App</strong>
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          onClick={toggleNav}
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded={isNavOpen}
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div className="navbar-nav">
-            <li className="nav-item nav-link active"><Link to="/">Home</Link></li>
-            <li className="nav-item nav-link"><Link to="/about">About</Link></li>
-            <li className="nav-item nav-link"><Link to="/help">Help</Link></li>
-            {user ?
-            <li className="nav-item nav-link" onClick={() => {
-              localStorage.removeItem("QuizyUser")
-              window.location.reload()
-            }}>Log Out</li>
-            :
-            <li className="nav-item nav-link"><Link to="/login">Log In</Link></li>}
+        <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
+          <div className="navbar-nav ml-auto m-4 align-items-end">
+            <NavLink exact to="/" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
+              Home
+            </NavLink>
+            <NavLink to="/about" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
+              About
+            </NavLink>
+            <NavLink to="/help" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
+              Help
+            </NavLink>
+            {user ? (
+              <span
+                className="nav-link fs-5 text-secondary fw-bold"
+                onClick={() => {
+                  localStorage.removeItem("QuizyUser");
+                  window.location.reload();
+                }}
+              >
+                Log Out
+              </span>
+            ) : (
+              <NavLink to="/login" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
+                Log In
+              </NavLink>
+            )}
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
     </>
   );
 }

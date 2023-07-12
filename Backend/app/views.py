@@ -52,7 +52,9 @@ class QuizzesView(APIView):
         id = request.GET.get("id")
         quiz = get_object_or_404(Quizze, pk=id)
         # quizzes = Quizze.objects.all()
+
         serializer = self.serializer_class(quiz)
+
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):

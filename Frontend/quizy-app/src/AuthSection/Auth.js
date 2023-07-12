@@ -154,7 +154,7 @@ export const Auth = () => {
 
                   <div className="text-center">
                     {/* <p>Don't have an account? <button type="button" onClick={() => setShowLogin(true)} className='btn btn-warning'>Login</button> now</p> */}
-                    <p>Don't have an account? Click <span className='fw-bold' style={{color:'red'}} onClick={() => setShowLogin(true)} >Here</span> to log in</p>
+                    <p>Already have an account? Click <span className='fw-bold' style={{color:'red'}} onClick={() => setShowLogin(true)} >Here</span> to log in</p>
                   </div>
                 </form>
           </div>
@@ -163,5 +163,7 @@ export const Auth = () => {
       </div>
       }
     </>
+    
   )
+  
 }
