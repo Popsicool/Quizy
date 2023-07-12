@@ -80,9 +80,9 @@ export const Team = () => {
                       rel="noopener noreferrer"
                     ><i className="fa fa-linkedin"></i
                     ></a>
-                    <a href={staff.ml} target="_blank" className="rectangle"
+                    <a href={staff.fb} target="_blank" className="rectangle"
                       rel="noopener noreferrer"
-                    ><i className="fa fa-envelope"></i
+                    ><i className="fa fa-facebook"></i
                     ></a>
                     <a href={staff.wa} target="_blank" className="rectangle"
                       rel="noopener noreferrer"
