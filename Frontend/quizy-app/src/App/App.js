@@ -19,6 +19,7 @@ import { Category } from '../Category/Category';
 import { QuizPage } from '../QuizPage/QuizPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Layout from '../components/Layout';
 
 export const UserContext = createContext()
 function App() {
@@ -30,7 +31,7 @@ function App() {
   }
 
   return (
-    <>
+    <Layout>
     <div className="App">
       <UserContext.Provider value={{signIn, user}}>
         <ToastContainer/>
@@ -49,9 +50,8 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
       </UserContext.Provider>
-      <Footer/>
     </div>
-    </>
+    </Layout>
   );
 }
 
