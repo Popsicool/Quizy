@@ -1,0 +1,13 @@
+.help_body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.class-1,
+.class-2,
+.class-3 {
+  width: 30%;
+  height: 3rem;
+}
+
