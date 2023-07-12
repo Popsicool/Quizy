@@ -19,12 +19,12 @@ export const Team = () => {
     {
       "name" : "BENNET UKOH",
       "title" : "Software Engineer",
-      "text" : "An experienced Fullstack software enginner with many software skills in his arsenal, A certified Animal scientist",
+      "text" : "Frontend software enginner with focus on React.js | UI/UX Enthusiast",
       "image": Ben,
-      "fb": "mailto:akinolasamson1234@gmail.com",
-      "ln": "https://www.linkedin.com/in/akinola-samson-438458124",
-      "tw": "https://twitter.com/Samson_Akinola1",
-      "wa": "https://wa.me/+2348069482021"
+      "fb": "https://web.facebook.com/Ukoh.Bennet/",
+      "ln": "https://www.linkedin.com/in/ukohbennet/",
+      "tw": "https://twitter.com/ukoh_bennet",
+      "wa": "https://wa.me/+2347036960106"
     },
     {
       "name" : "BIRHANE GULILAT",
