@@ -399,4 +399,42 @@ class CategoryViewTest(APITestCase):
 
     def test_valid_post_request(self):
         """ testing a valid post request """
-        pass
+        self.client.force_authenticate(user=self.user)
+        valid_data = [
+            {'name': 'test_category'},
+            # name with category that doesnt exist
+            {'name': 'invalid_category'},
+        ]
+        for data in valid_data:
+            response = self.client.post(
+                self.customers_url, data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            self.assertEqual(
+                response.data, CategorySerializer(response.data).data)
+
+    def test_invalid_post_request(self):
+        """ testing with and invalid data set """
+        self.client.force_authenticate(user=self.user)
+
+        invalid_data = [
+            {'names': 'test_category'},  # with no name key
+            {},                           # with empty dict
+        ]
+        for data in invalid_data:
+            response = self.client.post(
+                self.customers_url, data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_valid_post_with_invalid_user(self):
+        """ testing a valid request with an unauthorized user """
+
+        valid_data = [
+            {'name': 'test_category'},
+            # name with category that doesnt exist
+            {'name': 'invalid_category'},
+        ]
+        for data in valid_data:
+            response = self.client.post(
+                self.customers_url, data, format='json')
+            self.assertEqual(response.status_code,
+                             status.HTTP_401_UNAUTHORIZED)
