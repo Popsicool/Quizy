@@ -211,8 +211,9 @@ const QuizPage = () => {
                     <FontAwesomeIcon icon={faSignOutAlt} className='ms-2' />
                   </a>
                 </div>
-                <audio ref={wrongAudioRef}  />
-                <audio ref={correctAudioRef} />
+                <audio ref={wrongAudioRef} src={wrongAudio} />
+                <audio ref={correctAudioRef} src={correctAudio} />
+
               </>
             )}
           </div>
