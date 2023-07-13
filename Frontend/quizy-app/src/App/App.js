@@ -16,7 +16,7 @@ import GetStarted from '../components/GetStarted';
 import { RequireAuth } from '../AuthSection/RequireAuth';
 import { NotAuth } from '../AuthSection/NotAuth';
 import { Category } from '../Category/Category';
-import { QuizPage } from '../QuizPage/QuizPage';
+import QuizPage  from '../QuizPage/QuizPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Layout from '../components/Layout';
