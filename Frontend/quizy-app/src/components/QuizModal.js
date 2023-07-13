@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom';
 
 const QuizModal = ({ grade }) => {
   let message;
-  if (grade === 90) {
-    message = 'Congratulations! You are truly a genius.';
+
   if (grade >= 90) {
-    message = 'Congratulations! You scored an excellent grade.';
+    message = 'Congratulations! You are truly a genius.';
   } else if (grade >= 80) {
-    message = 'Great job! You scored a very good grade.';
+    message = 'Congratulations! You scored an excellent grade.';
   } else if (grade >= 70) {
-    message = 'Well done! You scored a good grade.';
+    message = 'Great job! You scored a very good grade.';
   } else if (grade >= 60) {
-    message = 'Good effort! You scored an average grade.';
+    message = 'Well done! You scored a good grade.';
   } else {
     message = 'Keep practicing! You scored a below-average grade.';
   }
@@ -29,5 +28,5 @@ const QuizModal = ({ grade }) => {
     </div>
   );
 };
-}
+
 export default QuizModal;
