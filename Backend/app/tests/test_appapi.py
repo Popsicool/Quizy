@@ -438,3 +438,39 @@ class CategoryViewTest(APITestCase):
                 self.customers_url, data, format='json')
             self.assertEqual(response.status_code,
                              status.HTTP_401_UNAUTHORIZED)
+
+    def test_valid_put_request(self):
+        """ testing a valid put request on category """
+        self.client.force_authenticate(user=self.user)
+
+        data = {'name': 'new name'}
+        Query = {'QUERY_STRING': f'id={self.category.id}'}
+
+        response = self.client.put(
+            self.customers_url, data=data, **Query, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data, {'id': self.category.id, 'name': data['name']})
+
+    def test_invalid_data_put_request(self):
+        """ testing invlid data for put request on cateagory """
+        self.client.force_authenticate(user=self.user)
+
+        invliad_data = [
+            {'name': self.category.name},  # name already exists
+            {'name': ''},  # name is empty
+        ]
+        Query = {'QUERY_STRING': f'id={self.category.id}'}
+
+        for data in invliad_data:
+            response = self.client.put(
+                self.customers_url, data=data, **Query, format='json')
+
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        data = {'name': 1}
+        with self.assertRaises(AttributeError) as err:
+            self.client.put(self.customers_url, data=data,
+                            **Query, format='json')
+        self.assertEqual(str(err.exception),
+                         "'int' object has no attribute 'capitalize'")

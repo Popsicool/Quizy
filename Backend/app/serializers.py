@@ -6,6 +6,9 @@ from .models import History
 
 class CategorySerializer(serializers.ModelSerializer):
     def validate(self, attrs):
+        if 'name' not in attrs.keys():
+            raise serializers.ValidationError('name not provided')
+
         if CategoryModel.objects.filter(name=attrs["name"]).exists():
             raise serializers.ValidationError("category name already exist")
         return attrs
@@ -22,11 +25,6 @@ class CatExists(serializers.ModelSerializer):
 
     def validate(self, attrs):
         """ validates the category"""
-        # print(type(attrs).__dict__)
-
-        # # check if category is given
-        # if 'name' not in attrs.keys():
-        #     raise serializers.ValidationError('No category given')
 
         # check if category exists
         if not CategoryModel.objects.filter(name=attrs["name"]).exists():
