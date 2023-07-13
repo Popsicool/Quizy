@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faArrowLeft, faArrowRight, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 import { UserContext } from '../App/App';
 import { Loading } from '../components/Loading';

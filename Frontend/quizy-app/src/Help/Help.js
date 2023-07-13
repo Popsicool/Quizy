@@ -1,7 +1,5 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 import './Help.css';
 
 export default function Help() {
@@ -10,7 +8,6 @@ export default function Help() {
     <Helmet>
       <title>Quizy - Help</title>
     </Helmet>
-    <Header />
     <div className="help_body">
       <div className="card-1">
         <h2>Test Your Knowledge on different topics </h2>
@@ -25,7 +22,6 @@ export default function Help() {
         <p>Join the leaderboard and Take quizes to be ranked among the 'Eisteins' of this generation. The leader board takes in consideration your quiz history and the points you have scored over a period of time.</p>
       </div>
     </div>
-    <Footer />
     </>
   )
 }

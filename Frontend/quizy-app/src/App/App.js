@@ -5,7 +5,7 @@ import {Team} from '../About/Team'
 import Help from '../Help/Help';
 import { NotFound } from '../components/NotFound';
 import { Auth } from '../AuthSection/Auth'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createContext } from "react";
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +18,6 @@ import { NotAuth } from '../AuthSection/NotAuth';
 import { Category } from '../Category/Category';
 import QuizPage  from '../QuizPage/QuizPage';
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 import Layout from '../components/Layout';
 
 export const UserContext = createContext()
