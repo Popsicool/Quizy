@@ -40,14 +40,14 @@ export const Team = () => {
       "wa": "https://wa.me/+25153123307"
     },
     {
-      "name": "EMMANUEL UGIH",
+      "name": "EMMANUEL UGOH",
       "title": "Software Engineer",
       "text": "An experienced Fullstack software enginner with many software skills in his arsenal, A certified Animal scientist",
       "image": "./images/teams/pop.jpg",
-      "fb": "mailto:akinolasamson1234@gmail.com",
+      "fb": "mailto:emmajoel6456@gmail.com",
       "ln": "https://www.linkedin.com/in/akinola-samson-438458124",
-      "tw": "https://twitter.com/Samson_Akinola1",
-      "wa": "https://wa.me/+2348069482021"
+      "tw": "https://twitter.com/_iammanny_",
+      "wa": "https://wa.me/+2348139536456"
     }
   ]
   return (
@@ -80,9 +80,9 @@ export const Team = () => {
                       rel="noopener noreferrer"
                     ><i className="fa fa-linkedin"></i
                     ></a>
-                    <a href={staff.ml} target="_blank" className="rectangle"
+                    <a href={staff.fb} target="_blank" className="rectangle"
                       rel="noopener noreferrer"
-                    ><i className="fa fa-envelope"></i
+                    ><i className="fa fa-facebook"></i
                     ></a>
                     <a href={staff.wa} target="_blank" className="rectangle"
                       rel="noopener noreferrer"

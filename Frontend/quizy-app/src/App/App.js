@@ -5,7 +5,7 @@ import {Team} from '../About/Team'
 import Help from '../Help/Help';
 import { NotFound } from '../components/NotFound';
 import { Auth } from '../AuthSection/Auth'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createContext } from "react";
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,21 +16,20 @@ import GetStarted from '../components/GetStarted';
 import { RequireAuth } from '../AuthSection/RequireAuth';
 import { NotAuth } from '../AuthSection/NotAuth';
 import { Category } from '../Category/Category';
-import { QuizPage } from '../QuizPage/QuizPage';
+import QuizPage  from '../QuizPage/QuizPage';
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import Layout from '../components/Layout';
 
 export const UserContext = createContext()
 function App() {
-
-  const [user, setUser] = useState(localStorage.getItem("QuizyUser") ? JSON.parse(localStorage.getItem("QuizyUser")) : null)
+  const [user, setUser] = useState(localStorage.getItem("QuizyUser") ? JSON.parse(localStorage.getItem("QuizyUser")) : null);
   const signIn = (props) => {
     localStorage.setItem("QuizyUser", JSON.stringify(props))
     setUser(props)
   }
 
   return (
-    <>
+    <Layout>
     <div className="App">
       <UserContext.Provider value={{signIn, user}}>
         <ToastContainer/>
@@ -49,9 +48,8 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
       </UserContext.Provider>
-      <Footer/>
     </div>
-    </>
+    </Layout>
   );
 }
 
