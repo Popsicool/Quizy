@@ -115,6 +115,7 @@ class CategoryView(generics.GenericAPIView):
         categories = get_object_or_404(CategoryModel, pk=id)
         data = request.data
         name = data.get("name")
+
         if name:
             data[name] = name.capitalize()
         serializer = self.serializer_class(

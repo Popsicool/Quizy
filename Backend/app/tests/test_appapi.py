@@ -1,3 +1,5 @@
+from typing import Any
+from django import http
 from django.urls import path, reverse, include, resolve
 from django.test import SimpleTestCase
 from app.views import (ping, ContactMessage, QuizzesView,
@@ -8,6 +10,9 @@ from rest_framework import status
 from django.db import connections, DEFAULT_DB_ALIAS
 from django.contrib.auth.models import User
 from account.models import UserData
+from app.models import Quizze, CategoryModel, Question, History
+from app.serializers import (CategorySerializer, CatExists, QuestionSerializer,
+                             QuizzeSerializer, HistorySerializer, GetQuizSerializer)
 from rest_framework.views import APIView
 
 
@@ -198,3 +203,274 @@ class ContactMessageViewTest(APITestCase):
         response = self.client.patch(self.customers_url)
         self.assertEqual(response.status_code,
                          status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class QuizzesViewTest(APITestCase):
+    """ test suite for the QuizzesView """
+    customers_url = reverse('quiz')
+
+    def setUp(self):
+        """ create a necessary instances client and Authenticated user for tests"""
+        self.client = APIClient()
+
+        # create User
+        self.user = UserData.objects.create_user(
+            username='admin', password='admin', email='bob.dylan.com')
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+        # create category
+        self.category = CategoryModel.objects.create(name='test_category')
+
+        # create Quiz
+        self.quiz = Quizze.objects.create(
+            owner=self.user,
+            title='test quiz',
+        )
+        self.quiz.category.set([self.category])
+
+        # create question
+        self.question = Question.objects.create(
+            quiz=self.quiz,
+            question="The acronym RIP stands for which of these?",
+            A="Routing Information Protocol",
+            B="Regular Interval Processes",
+            C="Runtime Instance Processes",
+            D="Routine Inspection Protocol",
+            answer="A"
+        )
+
+    def test_valid_quiz_get(self):
+        """ testing a valid get requst on the url"""
+        self.client.force_authenticate(user=self.user)
+        data = {'id': self.quiz.id}
+        response = self.client.get(self.customers_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {'id': self.quiz.id,
+                                         'title': 'test quiz',
+                                         'questions': [QuestionSerializer(self.question).data],
+                                         'category': [dict([('name', 'test_category')])],
+                                         'participants': 0})
+
+    def test_invalid_data_quiz_get(self):
+        """ testing an invalid data for get requst on the url"""
+        self.client.force_authenticate(user=self.user)
+        data = {'ids': '1'}
+        response = self.client.get(self.customers_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_invalid_data_quiz_get(self):
+        """ testing an invalid id for get requst on the url"""
+
+        self.client.force_authenticate(user=self.user)
+        # testing id that doesnt exist in database
+        data = {'id': '0'}
+        response = self.client.get(self.customers_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.reason_phrase, 'Not Found')
+        # testing invliad datatype
+        data = {'id': 'a'}
+        with self.assertRaises(ValueError) as err:
+            self.client.get(self.customers_url, data, format='json')
+        self.assertEqual(str(err.exception),
+                         "Field 'id' expected a number but got 'a'.")
+
+    def test_valid_post(self):
+        """ testing a valid post request """
+        self.client.force_authenticate(user=self.user)
+        data = {
+            'title': 'testing post reqest',
+            'category': [CategorySerializer(self.category).data],
+            'questions': [QuestionSerializer(self.question).data],
+        }
+        response = self.client.post(self.customers_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data, QuizzeSerializer(response.data).data)
+
+    def test_invalid_post(self):
+        """ testing with invalid data for post request """
+        self.client.force_authenticate(user=self.user)
+        invalid_data = [
+            {
+                # missing title
+                'title': '',
+                'category': [CategorySerializer(self.category).data],
+                'questions': [QuestionSerializer(self.question).data],
+            },
+            {
+                # title with invalid datatype
+                'title': ['testing post request'],
+                'category': [CategorySerializer(self.category).data],
+                'questions': [QuestionSerializer(self.question).data],
+            },
+            {
+                # missing category
+                'title': 'testing post request',
+                'category': [],
+                'questions': [QuestionSerializer(self.question).data],
+            },
+            {
+                # category with invalid datatype
+                'title': 'testing post request',
+                'category': CategorySerializer(self.category).data,
+                'questions': [QuestionSerializer(self.question).data],
+            },
+            # {
+            #     # missing questions
+            #     'title': 'testing post request',
+            #     'category': [CategorySerializer(self.category).data],
+            #     'questions': [],
+            # },
+            {
+                # questions with invalid datatype
+                'title': 'testing post request',
+                'category': [CategorySerializer(self.category).data],
+                'questions': QuestionSerializer(self.question).data,
+            },
+        ]
+        for data in invalid_data:
+            response = self.client.post(
+                self.customers_url, data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_valid_with_invalid_userpost(self):
+        """ testing a valid post request with an unauthenticated user"""
+
+        data = {
+            'title': 'testing post reqest',
+            'category': [CategorySerializer(self.category).data],
+            'questions': [QuestionSerializer(self.question).data],
+        }
+        response = self.client.post(self.customers_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class CategoryViewTest(APITestCase):
+    customers_url = reverse('category')
+
+    def setUp(self):
+        """ create a necessary instances client and Authenticated user for tests"""
+        self.client = APIClient()
+
+        # create User
+        self.user = UserData.objects.create_user(
+            username='admin', password='admin', email='bob.dylan.com')
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+        # create category
+        self.category = CategoryModel.objects.create(name='test_category')
+
+        # create Quiz
+        self.quiz = Quizze.objects.create(
+            owner=self.user,
+            title='test quiz',
+        )
+        self.quiz.category.set([self.category])
+
+        # create question
+        self.question = Question.objects.create(
+            quiz=self.quiz,
+            question="The acronym RIP stands for which of these?",
+            A="Routing Information Protocol",
+            B="Regular Interval Processes",
+            C="Runtime Instance Processes",
+            D="Routine Inspection Protocol",
+            answer="A"
+        )
+
+    def test_valid_get(self):
+        """ tests valid get request """
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(self.customers_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        queryset = CategoryModel.objects.all()
+        self.assertEqual(response.data, CategorySerializer(
+            queryset, many=True).data)
+
+    def test_valid_get_invalid_user(self):
+        """ testing with a user that havent logged in"""
+
+        response = self.client.get(self.customers_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        queryset = CategoryModel.objects.all()
+        self.assertEqual(response.data, CategorySerializer(
+            queryset, many=True).data)
+
+    def test_valid_post_request(self):
+        """ testing a valid post request """
+        self.client.force_authenticate(user=self.user)
+        valid_data = [
+            {'name': 'test_category'},
+            # name with category that doesnt exist
+            {'name': 'invalid_category'},
+        ]
+        for data in valid_data:
+            response = self.client.post(
+                self.customers_url, data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            self.assertEqual(
+                response.data, CategorySerializer(response.data).data)
+
+    def test_invalid_post_request(self):
+        """ testing with and invalid data set """
+        self.client.force_authenticate(user=self.user)
+
+        invalid_data = [
+            {'names': 'test_category'},  # with no name key
+            {},                           # with empty dict
+        ]
+        for data in invalid_data:
+            response = self.client.post(
+                self.customers_url, data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_valid_post_with_invalid_user(self):
+        """ testing a valid request with an unauthorized user """
+
+        valid_data = [
+            {'name': 'test_category'},
+            # name with category that doesnt exist
+            {'name': 'invalid_category'},
+        ]
+        for data in valid_data:
+            response = self.client.post(
+                self.customers_url, data, format='json')
+            self.assertEqual(response.status_code,
+                             status.HTTP_401_UNAUTHORIZED)
+
+    def test_valid_put_request(self):
+        """ testing a valid put request on category """
+        self.client.force_authenticate(user=self.user)
+
+        data = {'name': 'new name'}
+        Query = {'QUERY_STRING': f'id={self.category.id}'}
+
+        response = self.client.put(
+            self.customers_url, data=data, **Query, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data, {'id': self.category.id, 'name': data['name']})
+
+    def test_invalid_data_put_request(self):
+        """ testing invlid data for put request on cateagory """
+        self.client.force_authenticate(user=self.user)
+
+        invliad_data = [
+            {'name': self.category.name},  # name already exists
+            {'name': ''},  # name is empty
+        ]
+        Query = {'QUERY_STRING': f'id={self.category.id}'}
+
+        for data in invliad_data:
+            response = self.client.put(
+                self.customers_url, data=data, **Query, format='json')
+
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        data = {'name': 1}
+        with self.assertRaises(AttributeError) as err:
+            self.client.put(self.customers_url, data=data,
+                            **Query, format='json')
+        self.assertEqual(str(err.exception),
+                         "'int' object has no attribute 'capitalize'")
