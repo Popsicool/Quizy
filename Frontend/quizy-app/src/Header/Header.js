@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import logo from '../assets/quiz-icon.jpg';
 import { UserContext } from '../App/App';
 import { NavLink, Link } from "react-router-dom";
@@ -14,20 +16,20 @@ function Header() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className={`navbar navbar-expand-lg navbar-light bg-light ${isNavOpen ? 'overlay' : ''}`}>
         <Link to="/" className="navbar-brand">
           <img src={logo} alt="header" width="40" className="d-inline-block ms-4" />
           <strong>Quizy App</strong>
         </Link>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler me-2"
           type="button"
           onClick={toggleNav}
           aria-controls="navbarNavAltMarkup"
           aria-expanded={isNavOpen}
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <FontAwesomeIcon icon={isNavOpen ? faTimes : faBars} />
         </button>
         <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
           <div className="navbar-nav ml-auto m-4 align-items-end">
