@@ -8,6 +8,7 @@ import './Header.css';
 
 function Header() {
   const user = useContext(UserContext).user;
+  const signOut = useContext(UserContext).signOut;
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => {
@@ -45,10 +46,7 @@ function Header() {
             {user ? (
               <span
                 className="nav-link fs-5 text-secondary fw-bold"
-                onClick={() => {
-                  localStorage.removeItem("QuizyUser");
-                  window.location.reload();
-                }}
+                onClick={() => signOut()}
               >
                 Log Out
               </span>
