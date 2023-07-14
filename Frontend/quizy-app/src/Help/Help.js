@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import './Help.css';
-import helpimage from '../assets/uxui.jpg'
 
 export default function Help() {
   return (
@@ -10,9 +9,9 @@ export default function Help() {
         <title>Quizy - Help</title>
       </Helmet>
       <div className="container">
-     
+
         <div className="row m-4">
-      
+
           <div className="col-md-4">
             <div className="card">
               <div className="card-body">
