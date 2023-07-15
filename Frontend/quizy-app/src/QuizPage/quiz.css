@@ -1,6 +1,6 @@
 .mud {
   background-color: #ffffff;
-  border: 1px solid #888;
+  border: 2px solid #200303;
   width: 600px;
   max-width: 100%;
   padding: 30px 50px;
@@ -8,6 +8,6 @@
   margin-top: 10%;
   margin-bottom: 50%;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(187, 13, 13, 0.2);
   text-align: center;
 }

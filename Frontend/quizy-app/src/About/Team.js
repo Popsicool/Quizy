@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import pop from "../assets/teams/pop.jpg"
 import Ben from "../assets/teams/Bennet.jpg"
 import Birhane from "../assets/teams/Birhane.jpg"
+import Manny from "../assets/teams/manny.jpg"
 import "./team.css"
 
 
@@ -11,7 +12,7 @@ export const Team = () => {
     {
       "name": "AKINOLA SAMSON",
       "title": "Software Engineer",
-      "text": "An experienced Fullstack software enginner with many software skills in his arsenal, A certified Animal scientist",
+      "text": "An experienced Fullstack software enginner with many software skills in his arsenal",
       "image": pop,
       "fb": "mailto:akinolasamson1234@gmail.com",
       "ln": "https://www.linkedin.com/in/akinola-samson-438458124",
@@ -32,7 +33,7 @@ export const Team = () => {
     {
       "name": "BIRHANE GULILAT",
       "title": "Software Engineer",
-      "text": "An experienced Fullstack software enginner with many software skills in his arsenal, A certified Animal scientist",
+      "text": "A backend enginner passionate about build quality codes",
       "image": Birhane,
       "fb": "mailto:birhane.gulilat@gmail.com",
       "ln": "https://www.linkedin.com/in/birhanegulilat/",
@@ -42,8 +43,8 @@ export const Team = () => {
     {
       "name": "EMMANUEL UGOH",
       "title": "Software Engineer",
-      "text": "An experienced Fullstack software enginner with many software skills in his arsenal, A certified Animal scientist",
-      "image": "./images/teams/pop.jpg",
+      "text": "A passionate frontend enginner interested in building quality user interface",
+      "image": Manny,
       "fb": "mailto:emmajoel6456@gmail.com",
       "ln": "https://www.linkedin.com/in/akinola-samson-438458124",
       "tw": "https://twitter.com/_iammanny_",
@@ -82,7 +83,7 @@ export const Team = () => {
                     ></a>
                     <a href={staff.fb} target="_blank" className="rectangle"
                       rel="noopener noreferrer"
-                    ><i className="fa fa-facebook"></i
+                    ><i className="fa fa-envelope"></i
                     ></a>
                     <a href={staff.wa} target="_blank" className="rectangle"
                       rel="noopener noreferrer"

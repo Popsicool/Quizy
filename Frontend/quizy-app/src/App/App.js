@@ -27,11 +27,15 @@ function App() {
     localStorage.setItem("QuizyUser", JSON.stringify(props))
     setUser(props)
   }
+  const signOut = () => {
+    localStorage.removeItem("QuizyUser");
+    setUser(null)
+  }
 
   return (
     <Layout>
     <div className="App">
-      <UserContext.Provider value={{signIn, user}}>
+      <UserContext.Provider value={{signIn, user, signOut}}>
         <ToastContainer/>
         <Header/>
         <Routes>

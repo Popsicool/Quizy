@@ -87,7 +87,7 @@ export const Auth = () => {
       {isloading ? <Loading/> :
       <div className='row'>
         <div className='col-md-6'>
-          <img src={login} width= '100%' height= '100%'/>
+          <img src={login} width= '100%' height= '100%' alt='img'/>
         </div>
         <div className='col-md-6'>
           {showLogin ?
@@ -111,7 +111,7 @@ export const Auth = () => {
               <button type="submit" className="btn btn-primary btn-block mb-4">Log in</button>
 
               <div className="text-center">
-                <p>Don't have an account? Click <span className='fw-bold' style={{color:'red'}} onClick={() => setShowLogin(false)} >Here</span> to create one now</p>
+                <p>Don't have an account? Click <span className='fw-bold' style={{color:'red', cursor:'pointer'}} onClick={() => setShowLogin(false)} >Here</span> to create one now</p>
               </div>
             </form>
           </div> :
@@ -154,7 +154,7 @@ export const Auth = () => {
 
                   <div className="text-center">
                     {/* <p>Don't have an account? <button type="button" onClick={() => setShowLogin(true)} className='btn btn-warning'>Login</button> now</p> */}
-                    <p>Already have an account? Click <span className='fw-bold' style={{color:'red'}} onClick={() => setShowLogin(true)} >Here</span> to log in</p>
+                    <p>Already have an account? Click <span className='fw-bold' style={{color:'red', cursor:'pointer'}} onClick={() => setShowLogin(true)} >Here</span> to log in</p>
                   </div>
                 </form>
           </div>

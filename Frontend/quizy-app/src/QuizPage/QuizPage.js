@@ -22,6 +22,7 @@ const QuizPage = () => {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const user = useContext(UserContext).user;
+  const signOut = useContext(UserContext).signOut;
 
   const wrongAudioRef = useRef(null);
   const correctAudioRef = useRef(null);
@@ -154,8 +155,7 @@ const QuizPage = () => {
           position: "top-right"
         });
         console.log(error);
-        localStorage.removeItem("QuizyUser");
-        window.location.reload();
+        signOut()
       });
   };
 
