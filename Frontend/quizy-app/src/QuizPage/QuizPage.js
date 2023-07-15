@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faArrowLeft, faArrowRight, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Helmet } from 'react-helmet';
@@ -8,6 +8,7 @@ import { Loading } from '../components/Loading';
 import { toast } from 'react-toastify';
 import QuizQuestion from '../components/QuizQuestion';
 import QuizModal from '../components/QuizModal';
+import PropTypes from 'prop-types';
 import "./quiz.css";
 import wrongAudio from '../assets/audio/wrong-answer.mp3';
 import correctAudio from '../assets/audio/correct-answer.mp3';
@@ -26,6 +27,8 @@ const QuizPage = () => {
 
   const wrongAudioRef = useRef(null);
   const correctAudioRef = useRef(null);
+  const timerRef = useRef(null);
+  const [timer, setTimer] = useState(180); // 3 minutes
 
   useEffect(() => {
     const url = `https://quizy.popsicool.tech/api/v1/quiz?id=${id}`;
@@ -73,10 +76,43 @@ const QuizPage = () => {
     }
   }, [playCorrectAudio]);
 
+  useEffect(() => {
+    // Start the timer when the component mounts
+    startTimer();
+
+    // Clean up the timer when the component unmounts
+    return () => {
+      clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  const startTimer = () => {
+    timerRef.current = setInterval(() => {
+      setTimer(prevTimer => {
+        if (prevTimer === 0) {
+          submit();
+        }
+        return prevTimer - 1;
+      });
+    }, 1000); // 1 second
+  };
+
+  const resetTimer = () => {
+    clearInterval(timerRef.current);
+    startTimer();
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
   const next = () => {
     if (pos < questions.length - 1) {
       setCurr(questions[pos + 1]);
       setPos(pos + 1);
+      resetTimer(); // Reset the timer when moving to the next question
     }
   };
 
@@ -84,6 +120,7 @@ const QuizPage = () => {
     if (pos > 0) {
       setCurr(questions[pos - 1]);
       setPos(pos - 1);
+      resetTimer(); // Reset the timer when moving to the previous question
     }
   };
 
@@ -183,7 +220,7 @@ const QuizPage = () => {
                   <p>{pos + 1} of {questions.length}</p>
                   <div className='d-flex align-items-center'>
                     <FontAwesomeIcon icon={faClock} />
-                    <time>2:09</time>
+                    <time>{formatTime(timer)}</time>
                   </div>
                 </div>
 
@@ -205,10 +242,10 @@ const QuizPage = () => {
                     </button>
                   )}
 
-                  <a href="/" className='m-4 btn-outline-danger'>
+                  <Link to="/" className='m-4 btn-outline-danger'>
                     Quit
                     <FontAwesomeIcon icon={faSignOutAlt} className='ms-2' />
-                  </a>
+                  </Link>
                 </div>
                 <audio ref={wrongAudioRef} src={wrongAudio} />
                 <audio ref={correctAudioRef} src={correctAudio} />
@@ -220,6 +257,15 @@ const QuizPage = () => {
       )}
     </>
   );
+};
+
+QuizModal.propTypes = {
+  grade: PropTypes.number.isRequired,
+};
+
+QuizQuestion.propTypes = {
+  question: PropTypes.object.isRequired,
+  mark: PropTypes.func.isRequired,
 };
 
 export default QuizPage;
