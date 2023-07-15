@@ -44,15 +44,15 @@ const QuizModal = ({ grade }) => {
 
   return (
     <div className='modal-container'>
-      <div className='mud '>
-        <div>
-          <h3 className='fw-bold '>You Scored - {grade} %</h3>
-          <p className="mb-4 " style={{fontSize:40}}>{message}</p>
-          <Link to="/">Go Home</Link>
-        </div>
+    <div className='mud'>
+      <div className="text-center">
+        <h3 className='fw-bold'>You Scored - {grade}%</h3>
+        <p className="mb-4" style={{ fontSize: 40 }}>{message}</p>
+        <Link to="/" className="btn btn-primary">Go Home</Link>
       </div>
     </div>
-  );
+  </div>
+  )  
 };
 
 export default QuizModal;
