@@ -38,10 +38,10 @@ function Header() {
               Home
             </NavLink>
             <NavLink to="/about" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
-              About
+              Dev Team
             </NavLink>
             <NavLink to="/help" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active">
-              Help
+              About
             </NavLink>
             {user ? (
               <span

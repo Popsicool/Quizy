@@ -54,7 +54,7 @@ export const Team = () => {
   return (
     <>
       <Helmet>
-        <title>Quizy - About</title>
+        <title>Quizy - Team</title>
       </Helmet>
       <section className="main-Team">
         <div className='container'>
