@@ -6,12 +6,13 @@ import { Hero } from "../components/Hero";
 import { Category } from "../components/Category";
 import menu from "../assets/menu.png"
 import logo from "../assets/quiz-icon.jpg"
+import Footer from "../components/Footer";
 
 const Home = () => {
     const router = useRouter();
 
     return (
-        <SafeAreaView style={{flex:1, backgroundColor:"red"}}>
+        <SafeAreaView style={{flex:1}}>
             <Stack.Screen
             options={{
                 headerStyle: { backgroundColor: "#FAFAFC" },
@@ -33,6 +34,7 @@ const Home = () => {
 
                     <Hero/>
                     <Category/>
+                    <Footer/>
                 </View>
             </ScrollView>
         </SafeAreaView>

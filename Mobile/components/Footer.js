@@ -1,14 +1,16 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text} from 'react-native'
+import style from "../styles/FooterStyle"
+
+
 const Footer = () => {
   return (
-    <V className="footer bg-dark text-center py-4">
-      <div className="container">
-        <p className="mb-0 text-white">
+    <View style={style.footerBody}
+    >
+        <Text style={style.footerText}>
           &copy; {new Date().getFullYear()} - Built by Cohort8 Students @ Holberton - All rights reserved.
-        </p>
-      </div>
-    </V>
+        </Text>
+    </View>
   );
 };
 
