@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 const QuizCategory = () => {
   const [categories, setCategories] = useState([]);
   const catImages = [categoryImg, categoryImg1, categoryImg2, categoryImg3, categoryImg4, categoryImg5];
+  const [loading, setisloading] = useState(true)
 
   useEffect(() => {
     const url = "https://quizy.popsicool.tech/api/v1/category";
@@ -19,9 +20,11 @@ const QuizCategory = () => {
       .then(res => res.json())
       .then(data => {
         setCategories(data);
+        setisloading(false)
       })
       .catch(error => {
         console.error("Error fetching categories:", error);
+        setisloading(false)
       });
   }, []);
 
@@ -38,6 +41,18 @@ const QuizCategory = () => {
           <p>Choose your preferred category and get started</p>
         </div>
       </div>
+      {loading ? 
+      <div id="res" className="text-center">
+        <div className="spinner-border text-center text-md-left" role="status" id="spinner-div">
+              <button className="sr-only btn btn-primary btn-lg mt-5 text-center">Loading...</button>
+            </div>
+              <p>Fetching categories</p>
+      </div>
+      :
+
+
+
+
       <div className='row row-cols-3 mt-4 mb-4 d-flex justify-content-center'>
         {categories && categories.map((cat, index) => (
           <Link to={`/category/${cat.name}`} key={cat.id} className="card m-2" style={{ width: '20rem' }}>
@@ -49,6 +64,7 @@ const QuizCategory = () => {
           </Link>
         ))}
       </div>
+        }
     </>
   );
 }
