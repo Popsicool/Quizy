@@ -9,10 +9,6 @@ import { useState } from 'react';
 import { createContext } from "react";
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
-import WebDevQuizPage from '../../src/components/WebDevQuizPage'
-import PhilosophyQuizPage from '../components/PhilosophyQuizPage';
-import MathsQuizPage from '../components/MathsQuizPage';
-import GetStarted from '../components/GetStarted';
 import { RequireAuth } from '../AuthSection/RequireAuth';
 import { NotAuth } from '../AuthSection/NotAuth';
 import { Category } from '../Category/Category';
@@ -20,7 +16,6 @@ import QuizPage from '../QuizPage/QuizPage';
 import CreateQuiz from '../CreateQuiz/CreateQuiz'
 import Header from '../Header/Header';
 import Layout from '../components/Layout';
-import CreateQuestion from '../CreateQuestion/CreateQuestion';
 
 export const UserContext = createContext()
 function App() {
@@ -45,14 +40,9 @@ function App() {
             <Route path="/login" element={<NotAuth> <Auth /> </NotAuth>} />
             <Route path='/about' element={<Team />} />
             <Route path='/help' element={<Help />} />
-            <Route path="/webdev-quizzes" element={<WebDevQuizPage />} />
-            <Route path="/maths-quizzes" element={<MathsQuizPage />} />
-            <Route path="/philosophy-quizzes" element={<PhilosophyQuizPage />} />
-            <Route path="/get-started" element={<GetStarted />} />
             <Route path="/category/:name" element={<Category />} />
             <Route path="/quiz/:id" element={<RequireAuth> <QuizPage /></RequireAuth>} />
-            <Route path="/create-quiz" element={<CreateQuiz />} />
-            <Route path="/create-question/:id" element={< CreateQuestion />} />
+            <Route path="/create-quiz" element={<RequireAuth><CreateQuiz /></RequireAuth>} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </UserContext.Provider>
