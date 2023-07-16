@@ -26,36 +26,36 @@ export const Category = () => {
         setQuizzes(data);
       });
   }, [name]);
- // Shuffle the catImages array
- const shuffledCatImages = [...catImages].sort(() => Math.random() - 0.5);
+  // Shuffle the catImages array
+  const shuffledCatImages = [...catImages].sort(() => Math.random() - 0.5);
 
   return (
     <>
-    <div className='container'>
+      <div className='container'>
 
-      {loading ? <Loading/> : <>
-      <div className='text-center fw-bold m-4' style={{color:"red"}}>
-          <h1>Welcome to the {name} Quiz Category</h1>
-          <hr  />
-      </div>
-      <div className=' fw-bold m-4'><h2 className='text-muted mt-4 text-center'>Select a quiz and get started</h2></div>
-        <div className='row row-cols-3 mt-4 mb-4 d-flex justify-content-center'>
-          {quizzes.map((quiz, index) => (
+        {loading ? <Loading /> : <>
+          <div className='text-center fw-bold m-4' style={{ color: "red" }}>
+            <h1>Welcome to the {name} Quiz Category</h1>
+            <hr />
+          </div>
+          <div className=' fw-bold m-4'><h2 className='text-muted mt-4 text-center'>Select a quiz and get started</h2></div>
+          <div className='row row-cols-3 mt-4 mb-4 d-flex justify-content-center'>
+            {quizzes.map((quiz, index) => (
 
-            <Link to={`/quiz/${quiz.id}`} key={quiz.id} className="card m-2" style={{ width: '20rem' }}>
-            <img src={shuffledCatImages[index % shuffledCatImages.length]} className="card-img-top" alt="..." />
-              <div className='card-body'>
-                <div className='card-title '>{quiz.title}</div>
-                <div className='card-text'>
-                   Created on {new Date(quiz.created).toUTCString()}
+              <Link to={`/quiz/${quiz.id}`} key={quiz.id} className="card m-2" style={{ width: '20rem' }}>
+                <img src={shuffledCatImages[index % shuffledCatImages.length]} className="card-img-top" alt="..." />
+                <div className='card-body'>
+                  <div className='card-title '>{quiz.title}</div>
+                  <div className='card-text'>
+                    Created on {new Date(quiz.created).toUTCString()}
+                  </div>
+
                 </div>
 
-              </div>
-
-            </Link>
-          ))}
-      </div>
-      </>}
+              </Link>
+            ))}
+          </div>
+        </>}
 
       </div>
     </>

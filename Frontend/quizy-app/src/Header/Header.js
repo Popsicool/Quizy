@@ -44,12 +44,17 @@ function Header() {
               About
             </NavLink>
             {user ? (
-              <span
-                className="nav-link fs-5 text-secondary fw-bold"
-                onClick={() => signOut()}
-              >
-                Log Out
-              </span>
+              <>
+                <NavLink to="/create-quiz" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active" >
+                  Create Quiz
+                </NavLink>
+                <span
+                  className="nav-link fs-5 text-secondary fw-bold"
+                  onClick={() => signOut()}
+                >
+                  Log Out
+                </span>
+              </>
             ) : (
               <NavLink to="/login" className="nav-link fs-5 text-secondary fw-bold" activeclassname="active">
                 Log In

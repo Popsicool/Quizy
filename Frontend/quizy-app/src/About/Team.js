@@ -21,9 +21,9 @@ export const Team = () => {
     },
     {
 
-      "name" : "BENNET UKOH",
-      "title" : "Software Engineer",
-      "text" : "Frontend software enginner with focus on React.js | UI/UX Enthusiast",
+      "name": "BENNET UKOH",
+      "title": "Software Engineer",
+      "text": "Frontend software enginner with focus on React.js | UI/UX Enthusiast",
       "image": Ben,
       "fb": "https://web.facebook.com/Ukoh.Bennet/",
       "ln": "https://www.linkedin.com/in/ukohbennet/",
