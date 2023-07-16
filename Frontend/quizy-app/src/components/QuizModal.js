@@ -9,7 +9,7 @@ const QuizModal = ({ grade }) => {
   if (grade >= 90) {
     message = (
       <>
-        <FontAwesomeIcon icon={faTrophy} /> Congratulations! You are truly a genius.
+        <FontAwesomeIcon icon={faTrophy} /> Congrats! You are truly a genius.
       </>
     );
   } else if (grade >= 80) {
