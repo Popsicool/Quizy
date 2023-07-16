@@ -23,12 +23,11 @@ const CreateQuiz = () => {
 
 
 
-    fetch("http://localhost:8000/api/v1/quiz", {
+    fetch("https://quizy.popsicool.tech/api/v1/quiz", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${JSON.parse(token).access}`,
-        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg5NTI0MDc0LCJpYXQiOjE2ODk0Mzc2NzQsImp0aSI6IjE2Y2ZiZjUzMjA2MjQ2MTU4ZjA3OGQzOWU4OGY4NmRkIiwidXNlcl9pZCI6MSwiZmlyc3RfbmFtZSI6InN0cmluZyIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoic3RyaW5nIn0.yuEX3XI6_Vl6LG7wSbzgCtMl6jctYoI1wBcoHUpssL8`,
+        "Authorization": `Bearer ${JSON.parse(token).access}`,
       },
       body: JSON.stringify(quizForm)
     })
@@ -43,23 +42,16 @@ const CreateQuiz = () => {
         toast.success("Login Successful", {
           position: "top-right"
         })
-        // console.log(result)
         setQuizid(result.id)
       })
       .catch(() => {
         setIsLoading(false)
-        // console.log(category)
-        // console.log(questions)
         toast.error("Invalid Credentials", {
           position: "top-right"
         })
       });
 
   }
-
-  // function handleDropdownChange(selectedValue) {
-  //   setCategory(selectedValue);
-  // };
 
   return (
     <>
