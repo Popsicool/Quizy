@@ -34,7 +34,7 @@ function Header() {
         </button>
         <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
           <div className="navbar-nav ml-auto m-4 align-items-end">
-            <NavLink exact to="/" className="nav-link fs-5 text-secondary fw-bold" activeclassname="active">
+            <NavLink exact="true" to="/" className="nav-link fs-5 text-secondary fw-bold" activeclassname="active">
               Home
             </NavLink>
             <NavLink to="/about" className="nav-link fs-5 text-secondary fw-bold" activeclassname="active">
@@ -45,7 +45,7 @@ function Header() {
             </NavLink>
             {user ? (
               <>
-                <NavLink to="/create-quiz" className="nav-link fs-5 text-secondary fw-bold" activeClassName="active" >
+                <NavLink to="/create-quiz" className="nav-link fs-5 text-secondary fw-bold" activeclassname="active" >
                   Create Quiz
                 </NavLink>
                 <span

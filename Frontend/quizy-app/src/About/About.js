@@ -1,12 +1,14 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 function About() {
   return(
     <>
-    <Helmet>
-      <title>Quizy - About</title>
-    </Helmet>
+    <HelmetProvider>
+      <Helmet>
+        <title>Quizy - About</title>
+      </Helmet>
+    </HelmetProvider>
     <h1>Meet the developers</h1>
     </>
   )

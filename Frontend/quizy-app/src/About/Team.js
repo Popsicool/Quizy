@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import pop from "../assets/teams/pop.jpg"
 import Ben from "../assets/teams/Bennet.jpg"
 import Birhane from "../assets/teams/Birhane.jpg"
@@ -53,9 +53,11 @@ export const Team = () => {
   ]
   return (
     <>
+    <HelmetProvider>
       <Helmet>
         <title>Quizy - Team</title>
       </Helmet>
+    </HelmetProvider>
       <section className="main-Team">
         <div className='container'>
           <h1 className="text-center oA m-4"><b>MEET THE DEVELOPERS</b></h1>

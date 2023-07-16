@@ -1,12 +1,14 @@
 import React from 'react'
-import { Helmet } from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const QuizPages = () => {
   return (
     <>
-    <Helmet>
-        <title>Quizy-WebDev</title>
-      </Helmet>
+    <HelmetProvider>
+      <Helmet>
+          <title>Quizy-WebDev</title>
+        </Helmet>
+    </HelmetProvider>
     <div>
       <h1>Welcome to Web Dev Quiz page</h1>
     </div>

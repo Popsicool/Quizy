@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../components/Loading';
@@ -92,9 +92,11 @@ const CreateQuiz = () => {
   }
   return (
     <>
+    <HelmetProvider>
       <Helmet>
         <title>Quizy - Create quiz</title>
       </Helmet>
+    </HelmetProvider>
       {isloading ? <Loading/>
       :
       <>

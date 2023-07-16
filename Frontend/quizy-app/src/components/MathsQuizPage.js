@@ -1,14 +1,16 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faArrowLeft, faArrowRight, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const MathsQuizPage = () => {
     return (
         <>
+        <HelmetProvider>
             <Helmet>
                 <title>Quizy-WebDev</title>
             </Helmet>
+        </HelmetProvider>
             <div className="container">
                 <div className='m-4 '>
                     <h1>Mathematics Quiz Section</h1>

@@ -36,7 +36,7 @@ function App() {
           <ToastContainer />
           <Header />
           <Routes>
-            <Route path="/" exact element={<Home />} />
+            <Route path="/" exact = "true" element={<Home />} />
             <Route path="/login" element={<NotAuth> <Auth /> </NotAuth>} />
             <Route path='/about' element={<Team />} />
             <Route path='/help' element={<Help />} />
