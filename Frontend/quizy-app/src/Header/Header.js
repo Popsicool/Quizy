@@ -50,6 +50,7 @@ function Header() {
                 </NavLink>
                 <span
                   className="nav-link fs-5 text-secondary fw-bold"
+                  style={{color:'red'}}
                   onClick={() => signOut()}
                 >
                   Log Out
