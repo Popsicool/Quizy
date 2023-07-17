@@ -3,9 +3,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../components/Loading';
 import { UserContext } from '../App/App';
-
-import './auth.css'
-import login from '../assets/logins.jpg'
+import login from '../assets/images/logins.jpg'
 
 
 export const Auth = () => {
