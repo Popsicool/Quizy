@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Loading } from '../components/Loading';
 import CategoryOption from '../components/CategoryOption';
 import { UserContext } from '../App/App';
-import login from '../assets/images/logins.jpg';
+import login from '../assets/images/log-in.jpg';
 import './CreateQuiz.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
