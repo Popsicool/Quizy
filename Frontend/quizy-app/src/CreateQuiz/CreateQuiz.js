@@ -131,7 +131,7 @@ const CreateQuiz = () => {
               </div>
               <div className="col-md-6">
                 <div className="text-center justify-content-center p-5">
-                  <h2>Create Your Quiz</h2>
+                  <h2 className='fw-bold m-4' style={{color:'red'}}>Create Your Quiz</h2>
                   <div className="mb-4">
                     <input
                       onChange={(e) => setTitle(e.target.value)}
@@ -142,7 +142,7 @@ const CreateQuiz = () => {
                       placeholder="Quiz title"
                     />
                   </div>
-                  <div className="mb-4">
+                  <div className="m-4">
                     <CategoryOption
                       selectedcategory={category}
                       setCategory={setCategory}
@@ -193,7 +193,7 @@ const CreateQuiz = () => {
                         return (
                           <select
                             key={idx}
-                            className="form-control mb-2"
+                            className="form-control m-2"
                             value={question[k]}
                             onChange={(e) =>
                               handleChange(index, k, e.target.value)
