@@ -8,6 +8,14 @@ Quizy is a simple, interactive and interestingly educative app for learners of f
 
 React is a free and open-source front-end JavaScript library for building user interfaces based on components. It has allowed us to create a a dynamic website that will give our users the ability naviagte throw the website easily.
 
+## Chrome React Developer Tools
+
+A browser extension for enhanced debugging and inspection of React applications. It allows developers to inspect the component hierarchy, view component props and state, and track component updates.
+
+## Bootstrap
+
+A popular CSS framework that provides a collection of pre-built responsive components and styles. It enables developers to create modern and mobile-friendly user interfaces quickly. Bootstrap offers a grid system, typography, form controls, navigation components, and more, making it a powerful tool for building visually appealing websites and web applications.
+
 # Developers
 
 1. Benneth Ukoh
