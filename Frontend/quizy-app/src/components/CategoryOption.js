@@ -37,7 +37,7 @@ const CategoryOption = ({ selectedcategory, setCategory }) => {
           </option>
         ))}
       </select>
-      <p>Selected Option: {selectedcategory ? JSON.parse(selectedcategory).name : ''}</p>
+      <p className='m-2'>Selected Option: {selectedcategory ? JSON.parse(selectedcategory).name : ''}</p>
     </div>
   );
 };
