@@ -3,7 +3,8 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../components/Loading';
 import { UserContext } from '../App/App';
-import login from '../assets/images/logins.jpg'
+import loginImage from '../assets/images/logins.jpg'
+import signupImage from '../assets/images/uxui.jpg'
 
 
 export const Auth = () => {
@@ -21,6 +22,10 @@ export const Auth = () => {
 
   const navigate = useNavigate()
   const signIn = useContext(UserContext).signIn
+
+  // const toggleShowLogin = () => {
+  //   setShowLogin(!showLogin);
+  // };
 
   const submitLogin = (e) => {
     e.preventDefault()
@@ -80,12 +85,15 @@ export const Auth = () => {
 
 });
   }
+
+  const imageSource = showLogin ? loginImage : signupImage
+
   return (
     <>
       {isloading ? <Loading/> :
       <div className='row'>
         <div className='col-md-6'>
-          <img src={login} width= '100%' height= '100%' alt='img'/>
+          <img src={imageSource} width= '100%' height= '100%' alt='img'/>
         </div>
         <div className='col-md-6'>
           {showLogin ?
