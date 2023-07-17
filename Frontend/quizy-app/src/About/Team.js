@@ -33,7 +33,7 @@ export const Team = () => {
     {
       "name": "BIRHANE GULILAT",
       "title": "Software Engineer",
-      "text": "A backend enginner passionate about build quality codes",
+      "text": "A Backend software enginner passionate about build quality codes",
       "image": Birhane,
       "fb": "mailto:birhane.gulilat@gmail.com",
       "ln": "https://www.linkedin.com/in/birhanegulilat/",
@@ -53,11 +53,11 @@ export const Team = () => {
   ]
   return (
     <>
-    <HelmetProvider>
-      <Helmet>
-        <title>Quizy - Team</title>
-      </Helmet>
-    </HelmetProvider>
+      <HelmetProvider>
+        <Helmet>
+          <title>Quizy - Team</title>
+        </Helmet>
+      </HelmetProvider>
       <section className="main-Team">
         <div className='container'>
           <h1 className="text-center oA m-4"><b>MEET THE DEVELOPERS</b></h1>
