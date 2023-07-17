@@ -11,3 +11,13 @@
   box-shadow: 0 2px 4px rgba(187, 13, 13, 0.2);
   text-align: center;
 }
+
+.message {
+  font-size: 40px;
+  color: green;
+  font-weight: bold;
+}
+.scores {
+  color: red;
+  font-size: 30px;
+}
