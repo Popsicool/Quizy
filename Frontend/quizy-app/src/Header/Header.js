@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
-import logo from '../assets/quiz-icon.jpg';
+import logo from '../assets/images/quiz-icon.jpg';
 import { UserContext } from '../App/App';
 import { NavLink, Link } from "react-router-dom";
 import './Header.css';
