@@ -1,15 +1,12 @@
 import React from "react";
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-import './Help.css';
+import { Helmet } from "react-helmet";
 
 export default function Help() {
   return (
     <>
-    <HelmetProvider>
       <Helmet>
         <title>Quizy - Help</title>
       </Helmet>
-    </HelmetProvider>
       <div className="container">
         <div className="row">
           <div className="col">

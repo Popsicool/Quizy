@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Loading } from '../components/Loading';
-import categoryImg from '../assets/landing-page.jpg';
-import categoryImg1 from '../assets/hero-section.jpg';
-import categoryImg2 from '../assets/log-in.jpg';
-import categoryImg3 from '../assets/maths.jpg';
-import categoryImg4 from '../assets/philosophy.jpg';
-import categoryImg5 from '../assets/science.jpg';
+import categoryImg from '../assets/images/landing-page.jpg';
+import categoryImg1 from '../assets/images/hero-section.jpg';
+import categoryImg2 from '../assets/images/log-in.jpg';
+import categoryImg3 from '../assets/images/maths.jpg';
+import categoryImg4 from '../assets/images/philosophy.jpg';
+import categoryImg5 from '../assets/images/science.jpg';
 
 
 
