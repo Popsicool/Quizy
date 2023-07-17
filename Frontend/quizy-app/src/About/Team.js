@@ -27,7 +27,7 @@ export const Team = () => {
       "image": Ben,
       "fb": "https://web.facebook.com/Ukoh.Bennet/",
       "ln": "https://www.linkedin.com/in/ukohbennet/",
-      "tw": "https://twitter.com/ukoh_bennet",
+      "tw": "https://www.linkedin.com/in/ukohbennet/",
       "wa": "https://wa.me/+2347036960106"
     },
     {
