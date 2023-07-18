@@ -31,9 +31,20 @@ def check(email):
 
 
 class ContactMessage(APIView):
+    """ A class view for messaging devs """
     parser_classes = [FormParser, MultiPartParser, JSONParser]
 
     def post(self, request):
+        """ 
+            Post request for sending data for Devs
+            - Authentication not required
+            - Data = {
+                'name': 'ViewTester',
+                'email': 'viewTester@alx.com',
+                'message': 'Test Message'
+            }
+            - Response = {'detail': 'Sent'}
+        """
         name = request.data.get("name")
         email = request.data.get("email")
         message = request.data.get("message")
@@ -45,19 +56,45 @@ class ContactMessage(APIView):
 
 
 class QuizzesView(APIView):
+    """ A QuizzesView for handling various Quiz related methods """
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = QuizzeSerializer
 
     def get(self, request):
+        """ 
+            GET request getting a quiz based on its Id
+            - Authentication required
+            - data = {'id': <int>}
+            - Response = {'id': quiz.id,
+                          'title': quiz.title,
+                          'questions': list of questions,
+                          'category': list of category,
+                          'participants': 0}
+        """
         id = request.GET.get("id")
         quiz = get_object_or_404(Quizze, pk=id)
         # quizzes = Quizze.objects.all()
-
         serializer = self.serializer_class(quiz)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        """ 
+            POST request for creating quiz
+            - Authentication required
+            - Data = {
+                    'title': 'Quiz title',  # NotNULL
+                    'category': list of Category object, # NotNULL
+                    'questions': list of Questions object,
+                }
+            - Response = {
+                          'id': quiz.id,
+                          'title': quiz.title,
+                          'questions': list of New Questions object,
+                          'category': list of Category object,
+                          'participants': 0
+                        }
+        """
         data = request.data
         serializer = self.serializer_class(data=data)
         if serializer.is_valid():
@@ -66,6 +103,23 @@ class QuizzesView(APIView):
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
+        """ 
+            PUT request for updating a quiz
+            - Authentication required
+            - can update title, Quiz or Category
+            - Data = {
+                    'title': 'Quiz title',  # NotNULL
+                    'category': list of Category object, # NotNULL
+                    'questions': list of New Questions object,
+                }
+            - Response = {
+                          'id': quiz.id,
+                          'title': quiz.title,
+                          'questions': list of New Questions object,
+                          'category': list of Category object,
+                          'participants': 0
+                        }
+        """
         id = request.GET.get("id")
         quiz = get_object_or_404(Quizze, pk=id)
         data = request.data
@@ -79,6 +133,11 @@ class QuizzesView(APIView):
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
+        """
+            DELETE request for Deleteing a quiz
+            - Authentication required
+            - Query params id=quiz.id
+        """
         id = request.GET.get("id")
         quiz = get_object_or_404(Quizze, pk=id)
         data = request.data
@@ -89,17 +148,38 @@ class QuizzesView(APIView):
 
 
 class CategoryView(generics.GenericAPIView):
+    """ A CategoryView for handling various Category related methods """
     serializer_class = CategorySerializer
     parser_classes = [FormParser, MultiPartParser, JSONParser]
     queryset = CategoryModel.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request):
+        """ 
+            GET request getting a category
+            - Authentication required
+            - Query Params = {'id': <int>}
+            - Response = {'id': category.id,
+                          'name': category.name
+                        }
+            - if no id is given it returns list of Category objects
+        """
         categories = CategoryModel.objects.all()
         serializer = self.serializer_class(categories, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        """
+            POST request for creating a category
+            - Authentication required
+            - Data = {
+                    'name': 'name of Category', # NotNULl
+                }
+            - Response = {
+                          'id': category.id,
+                          'name': 'name of category'
+                        }
+        """
         data = request.data
         name = data.get("name")
         if name:
@@ -111,6 +191,19 @@ class CategoryView(generics.GenericAPIView):
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
+        """ 
+            PUT request for updating a Category
+            - Authentication required
+            - can update name
+            - Requires a Query Params
+            - Data = {
+                        'name': 'new category name'
+                    }
+            - Response = {
+                          'id': category.id,
+                          'name': 'new category name'
+                        }
+        """
         id = request.GET.get("id")
         categories = get_object_or_404(CategoryModel, pk=id)
         data = request.data
@@ -126,6 +219,12 @@ class CategoryView(generics.GenericAPIView):
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
+        """
+            DELETE request for Deleteing a Category
+            - Authentication required
+            - Query params id=quiz.id
+            - Response = @04 status Code
+        """
         id = request.GET.get("id")
         categories = get_object_or_404(CategoryModel, pk=id)
         categories.delete()
@@ -133,10 +232,17 @@ class CategoryView(generics.GenericAPIView):
 
 
 class SubmitView(APIView):
+    """ A SubmitView for handling various History related methods """
     permission_classes = [IsAuthenticated]
     serializer_class = HistorySerializer
 
     def get(self, request):
+        """ 
+            GET request getting a History
+            - Authentication required
+            - Gets users from request
+            - Response = list of grades
+        """
         user = request.user
         histories = History.objects.filter(user=user).order_by("-date")
         serializer = self.serializer_class(histories, many=True)
@@ -149,6 +255,12 @@ class SubmitView(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        """
+            POST request for creating a History
+            - Authentication required
+            - Data = {}
+            - Response = {}
+        """
         data = request.data
         quiz_id = data.get("id")
         if not quiz_id:
@@ -175,6 +287,12 @@ class GetQuizzes(APIView):
     serializer_class = GetQuizSerializer
 
     def get(self, request):
+        """ 
+            GET request getting a quiz
+            - Authentication not required
+            - Query Params = {'category': category}
+            - Response = List of Quizzes that match a category
+        """
         category = request.query_params.get('category')
         quizzes = Quizze.objects.all().order_by("-participants")
         if category:
