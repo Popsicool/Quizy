@@ -11,6 +11,7 @@ from django.http import Http404
 
 
 class UserCreateView(generics.GenericAPIView):
+    """ A QuizzesView for handling various Quiz related methods """
     serializer_class = UserSerializer
 
     def post(self, request):
@@ -23,9 +24,7 @@ class UserCreateView(generics.GenericAPIView):
 
 
 class ChangePasswordView(generics.UpdateAPIView):
-    """
-    An endpoint for changing password.
-    """
+    """    An endpoint for changing password.  """
     serializer_class = ChangePasswordSerializer
     model = UserData
     permission_classes = (IsAuthenticated,)
@@ -58,7 +57,7 @@ class ChangePasswordView(generics.UpdateAPIView):
 
 
 class UserProfileView(generics.RetrieveAPIView):
-
+    """ Retrives a user by the id given into the Query Params"""
     queryset = UserData.objects.all()
     serializer_class = UserProfileSerializer
     parser_classes = [FormParser, MultiPartParser, JSONParser]
